@@ -1,0 +1,381 @@
+﻿<Window x:Class="PasswordManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordManager"
+        mc:Ignorable="d"
+        Title="GuardianVault" Height="640" Width="1250" Icon="/Assets/icon.png" WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Disabled" ResizeMode="CanResizeWithGrip"
+        MinHeight="250" MinWidth="450">
+
+    <Grid>
+        <Grid Background="#F2F2F2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="63*"/>
+                <ColumnDefinition Width="37*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Name="ColorSeparation" Visibility="Hidden" Background="#FFFFFF"/>
+        </Grid>
+
+        <Grid Name="FenetrePremiereConnexion"  Visibility="Visible" Width="350" Height="200">
+            <Rectangle Fill="White" RadiusX="15" RadiusY="15"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35*"/> <!-- Titre & Logo -->
+                    <RowDefinition Height="40*"/> <!-- Champs -->
+                    <RowDefinition Height="25*"/> <!-- Bouton valider -->
+                </Grid.RowDefinitions>
+                
+                <Image Grid.Row="0" Source="/Assets/logo.png" Height="45" Margin="30,0,0,0" HorizontalAlignment="Left" />
+                <Image Grid.Row="0" Source="/Assets/title.png" Height="13" Margin="90,0,0,0" HorizontalAlignment="Left" />
+                
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/> <!-- Textes -->
+                        <ColumnDefinition Width="50*"/> <!-- Champs -->
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Column="0"  Content="Mot de passe maître" Margin ="10,5,0,0" VerticalAlignment="Top" Style="{StaticResource TextStyleNormal}"/>
+                    <PasswordBox Grid.Column="1" Name="TextBoxSetMasterPass"  Margin ="10,5,10,0" Height="30" VerticalAlignment="Top" Style="{StaticResource TextBoxStylePassword}"/>
+                    
+                    <Label Grid.Column="0"  Content="Confirmation" Margin ="10,0,0,5" VerticalAlignment="Bottom" Style="{StaticResource TextStyleNormal}"/>
+                    <PasswordBox Grid.Column="1" Name="TextBoxConfirmMasterPass" Margin ="10,0,10,5" Height="30" VerticalAlignment="Bottom" Style="{StaticResource TextBoxStylePassword}"/>
+                </Grid>
+                
+                <Button Grid.Row="2" Content="OK" Width="80" HorizontalAlignment="Right" Margin="0,12,10,12" Style="{StaticResource ButtonStyleBlue}" Click="Click_premiere_connexion" />
+            </Grid>
+        </Grid>
+        
+        <Grid Name="FenetreConnexion"  Visibility="Hidden" Width="350" Height="170">
+            <Rectangle Fill="White" RadiusX="15" RadiusY="15"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*"/> <!-- Titre & Logo -->
+                    <RowDefinition Height="30*"/> <!-- Champs -->
+                    <RowDefinition Height="30*"/> <!-- Bouton valider -->
+                </Grid.RowDefinitions>
+                
+                <Image Grid.Row="0" Source="/Assets/logo.png" Height="42" Margin="30,0,0,0" HorizontalAlignment="Left" />
+                <Image Grid.Row="0" Source="/Assets/title.png" Height="13" Margin="90,0,0,0" HorizontalAlignment="Left" />
+                
+                <Label Grid.Row="1"  Content="Mot de passe maître" Margin ="10,0,0,5" VerticalAlignment="Center" Style="{StaticResource TextStyleNormal}"/>
+                <PasswordBox Grid.Row="1" Name="TextBoxMasterPass" Margin ="10,0,10,5" Height="30" Width="155" HorizontalAlignment="Right" Style="{StaticResource TextBoxStylePassword}"/>
+                
+                <Button Grid.Row="2" Content="OK" Width="80" HorizontalAlignment="Right" Margin="0,12,10,12" Style="{StaticResource ButtonStyleBlue}" Click="Click_connexion" />
+            </Grid>
+        </Grid>
+        
+        
+        <Viewbox Name="FenetrePrincipale" Visibility="Hidden">
+            <Grid Width="1250" Height="620"> <!-- Fenêtre entière -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="63*"/> <!-- Colonne principale -->
+                    <ColumnDefinition Width="37*"/> <!-- Colonne secondaire -->
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"> <!-- Colonne principale -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"/> <!-- Marge -->
+                        <RowDefinition Height="6*"/> <!-- Recherche & écrou -->
+                        <RowDefinition Height="82*"/> <!-- Contenu -->
+                        <RowDefinition Height="6*"/> <!-- Marge -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Barre de recherche -->
+                    <TextBox Grid.Row="1" Tag="Rechercher ici" Width="650" HorizontalAlignment="Left" Margin="40,0,0,0" Style="{StaticResource TextBoxStyleSearch}"/>
+                    
+                    <!-- Bouton Rechercher -->
+                    <Button Grid.Row="1" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,110,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Assets/search_button.png"/>
+                        </Button.Background>
+                    </Button>
+
+                    <!-- Bouton Paramètres -->                    
+                    <CheckBox Name="CheckboxParametres" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,35,0" Style="{StaticResource CheckboxStyleSettings}" Click="Click_parametres"/>
+                        
+
+                    <Grid Grid.Row="2"> <!-- Contenu -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="47*"/> <!-- Liste déroulante -->
+                            <ColumnDefinition Width="8*"/> <!-- Marge -->
+                            <ColumnDefinition Width="45*"/> <!-- Détails -->
+                        </Grid.ColumnDefinitions>
+
+                        <DataGrid x:Name="DataGridWebsiteList" Margin="40,20,9,0" RowHeight="60" Style="{StaticResource DataGridStyle}" SelectionChanged="Click_DataGridWebsiteList">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Image Source="{Binding logo}" HorizontalAlignment="Left" Margin="8,8,0,8"/>
+                                                <Label Content="{Binding nom}" Margin="60,4,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                                <Label Content="{Binding email}" Margin="60,25,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                            </Grid>
+                                            
+                                            
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        
+
+
+
+
+
+                        <Grid Grid.Column="2"> <!-- Détails -->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="17*"/> <!-- Logo & Nom -->
+                                <RowDefinition Height="7*"/>  <!-- Sous-titre -->
+                                <RowDefinition Height="26*"/> <!-- Infos -->
+                                <RowDefinition Height="11*"/> <!-- Bouton Copier -->
+                                <RowDefinition Height="11*"/> <!-- Bouton Modifier -->
+                                <RowDefinition Height="28*"/> <!-- Notes -->
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"> <!-- Logo & Nom -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="19*"/> <!-- Logo -->
+                                    <ColumnDefinition Width="81*"/> <!-- Nom -->
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="LogoWebSiteItem" Grid.Column="0" Source="/Assets/img_temp.png" />
+                                <Label Name="NomWebSiteItem" Grid.Column="1" Content="Adobe" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextStyleGrandTitre}"/>
+                            </Grid>
+
+                            <StackPanel Grid.Row="1"> <!-- Sous-titre -->
+                                <Label Content="Détails et notes" Style="{StaticResource TextStyleSousTitre}"/>
+                                <Separator Height="2" Background="#DADADA" Width="300" HorizontalAlignment="Left"/>
+                            </StackPanel>
+
+                            <Grid Grid.Row="2"> <!-- Infos -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32*"/> <!-- Noms infos -->
+                                    <ColumnDefinition Width="68*"/> <!-- Champs infos -->
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"> <!-- Noms attributs -->
+                                    <Label Content="URL" VerticalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    <Label Content="Identifiant" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    <Label Content="Mot de passe" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1"> <!-- Champs attributs -->
+                                    <Label Name="URLWebSiteItem" Content="adobe.com" VerticalAlignment="Center" Margin="0,9,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                    <Label Name="EmailWebSiteItem" Content="email@email.com" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                    <Label Name="PassordWebSiteItem" Content="gkhl3KLrf" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                </StackPanel>
+
+                            </Grid>
+
+                            <Button Grid.Row="3" Content="Copier le mot de passe"   Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}"/>
+                            <Button Grid.Row="4" Content="Modifier" Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}"/>
+
+                            <Label Grid.Row="5" Content="Notes" Margin="4,5,0,0" Style="{StaticResource TextStyleSousTitre}"/>
+                            <TextBox Grid.Row="5" Name="NoteWebSiteItem" Width="305" HorizontalAlignment="Left" Margin="4,44,0,0" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Style="{StaticResource TextBoxStyleNotes}"/>
+
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+
+                <Grid Grid.Column="1" x:Name="GridSecondaire" Visibility="Visible"> <!-- Colonne secondaire -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15*"/> <!-- Marge -->
+                        <ColumnDefinition Width="70*"/> <!-- Contenu colonne secondaire -->
+                        <ColumnDefinition Width="15*"/> <!-- Marge -->
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1"> <!-- Contenu colonne secondaire -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*"/> <!-- Marge -->
+                            <RowDefinition Height="6*"/> <!-- Titre -->
+                            <RowDefinition Height="28*"/> <!-- Attributs nouveau site -->
+                            <RowDefinition Height="10*"/> <!-- Sous-titre -->
+                            <RowDefinition Height="10*"/> <!-- Mot de passe -->
+                            <RowDefinition Height="24*"/> <!-- Paramètres mot de passe -->
+                            <RowDefinition Height="10*"/> <!-- Boutons -->
+                            <RowDefinition Height="6*"/> <!-- Marge -->
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="1" Content="Ajout d'un nouveau site" Margin="-30,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextStyleTitre}"/>
+
+                        <Grid Grid.Row="2"> <!-- Attributs nouveau site -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30*"/> <!-- Noms attributs -->
+                                <ColumnDefinition Width="70*"/> <!-- Champs attributs -->
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0"> <!-- Noms attributs -->
+                                <Label Content="Nom" VerticalAlignment="Center" Margin="0,20,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                <Label Content="Identifiant" VerticalAlignment="Center" Margin="0,25,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                <Label Content="URL" VerticalAlignment="Center" Margin="0,25,0,0" Style="{StaticResource TextStyleNormal}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1"> <!-- Champs attributs -->
+                                <TextBox Grid.Row="1" Tag="Nom du site ou de l'app" Width="200" HorizontalAlignment="Right" Margin="0,20,0,0" Style="{StaticResource TextBoxStyleNormal}"/>
+                                <TextBox Grid.Row="1" Tag="Identifiant ou email" Width="200" HorizontalAlignment="Right" Margin="0,25,0,0" Style="{StaticResource TextBoxStyleNormal}"/>
+                                <TextBox Grid.Row="1" Tag="URL du site" Width="200" HorizontalAlignment="Right" Margin="0,25,0,0" Style="{StaticResource TextBoxStyleNormal}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Grid.Row="3"> <!-- Sous-titre -->
+                            <Separator Height="2" Background="#DADADA"/>
+                            <Label Content="Mot de passe" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource TextStyleSousTitre}"/>
+                        </StackPanel>
+
+                        <!-- Champ mot de passe -->
+                        <TextBox Grid.Row="4" Tag="Ecrire ou générer un mot de passe" Width="307" Margin="0,0,0,20" FontSize="13" VerticalContentAlignment="Center" MaxLines="1" Padding="4,6,35,6" Style="{StaticResource TextBoxStylePasswordCreation}"/>
+
+                        <!-- Bouton Regénerer -->
+                        <Button Grid.Row="4" HorizontalAlignment="Right" Width="23" Height="23"  Margin="0,0,17,20" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/refresh_button.png"/>
+                            </Button.Background>
+                        </Button>
+
+                        <Grid Grid.Row="5"> <!-- Paramètres mot de passe -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/> <!-- Paramètres gauche mot de passe -->
+                                <ColumnDefinition Width="50*"/> <!-- Paramètres droite mot de passe -->
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0"> <!-- Paramètres gauche mot de passe -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70*"/> <!-- Noms gauche mot de passe -->
+                                    <ColumnDefinition Width="30*"/> <!-- Inputs gauche mot de passe -->
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"> <!-- Noms gauche mot de passe -->
+                                    <Label Content="Longueur" VerticalAlignment="Center" Margin="5,5,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    <Label Content="Nombres" VerticalAlignment="Center" Margin="5,20,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    <Label Content="Minuscules" VerticalAlignment="Center" Margin="5,20,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1"> <!-- Inputs gauche mot de passe -->
+                                    <TextBox Name="TextBoxLongueur" Grid.Row="1" Text="16" Width="26" HorizontalAlignment="Left" Margin="0,7,0,0" FontWeight="Bold" MaxLength="2" MaxLines="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource TextBoxStyleSmall}" LostFocus="Update_Slider_Longueur"/>
+                                    <CheckBox Margin="0,27,0,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                    <CheckBox Margin="0,27,0,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                </StackPanel>
+
+
+                            </Grid>
+
+                            <Grid Grid.Column="1"> <!-- Paramètres droite mot de passe -->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="48"/> <!-- Slidebar droite mot de passe -->
+                                    <RowDefinition/> <!-- Autres paramètres droite mot de passe -->
+                                </Grid.RowDefinitions>
+
+                                <Slider Name="SliderLongueur" Grid.Row="0" Value="16" VerticalAlignment="Center" Height="24" Padding="-5,0,0,0" Margin="14,0,12,0" Minimum="8" Maximum="32" ValueChanged="Update_TextBox_Longueur"/>
+
+                                <Grid Grid.Row="1"> <!-- Autres paramètres droite mot de passe -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70*"/> <!-- Noms droite mot de passe -->
+                                        <ColumnDefinition Width="30*"/> <!-- Inputs droite mot de passe -->
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"> <!-- Noms droite mot de passe -->
+                                        <Label Content="Symboles" VerticalAlignment="Center" Margin="12,7,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                        <Label Content="Majuscules" VerticalAlignment="Center" Margin="12,20,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Right"> <!-- Inputs droite mot de passe -->
+                                        <CheckBox Margin="0,11,15,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                        <CheckBox Margin="0,29,15,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="6"> <!-- Boutons -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/> <!-- Bouton Regénérer -->
+                                <ColumnDefinition Width="50*"/> <!-- Bouton Sauvegarder -->
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" Content="Regénérer" Margin="7,10,15,10" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Column="1" Content="Sauvegarder" Margin="15,10,0,7" Style="{StaticResource ButtonStyleBlue}"/>
+
+
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+                
+                <Grid Grid.Column="1" x:Name="GridParametres" Visibility="Hidden"> <!-- Colonne Paramètres -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15*"/> <!-- Marge -->
+                        <ColumnDefinition Width="70*"/> <!-- Contenu colonne secondaire -->
+                        <ColumnDefinition Width="15*"/> <!-- Marge -->
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="1"> <!-- Contenu colonne secondaire -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*"/> <!-- Marge -->
+                            <RowDefinition Height="6*"/> <!-- Titre -->
+                            <RowDefinition Height="8*"/> <!-- Sous-Titre -->
+                            <RowDefinition Height="16*"/> <!-- Boutons paramètres coffres -->
+                            <RowDefinition Height="23*"/> <!-- Autres paramètres -->
+                            <RowDefinition Height="7*"/> <!-- Séparateur -->
+                            <RowDefinition Height="28*"/> <!-- Boutons paramètres compte -->
+                            <RowDefinition Height="6*"/> <!-- Marge -->
+                        </Grid.RowDefinitions>
+                    
+                        <Label Grid.Row="1" Content="Paramètres"  Margin="-30,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextStyleTitre}"/>
+                        
+                        <Label Grid.Row="2" Content="Paramètres du coffre" VerticalAlignment="Center" Style="{StaticResource TextStyleSousTitre}"/>
+                        
+                        
+                        <Grid Grid.Row="3"> <!-- Boutons paramètres coffres -->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50*"/> <!-- Bouton Modifier Mot de passe maître -->
+                                <RowDefinition Height="50*"/> <!-- Bouton Exporter le coffre -->
+                            </Grid.RowDefinitions>
+
+                            <Button Grid.Row="0" Content="Modifier le mot de passe maître" Margin="0,0,0,8" Style="{StaticResource ButtonStyleNormal}" Click="Click_edit_master_password"/>
+                            <Button Grid.Row="1" Content="Exporter le coffre" Margin="0,8,0,0" Style="{StaticResource ButtonStyleNormal}"/>
+                        </Grid>
+                        
+                        <Grid Grid.Row="4"> <!-- Autres paramètres -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70*"/> <!-- Liste déroulante Verrouillage automatique -->
+                                <ColumnDefinition Width="30*"/> <!-- Slider Mode nuit -->
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="Verrouillage automatique" Margin="11,18,0,0" Style="{StaticResource TextStyleNormal}"/>
+                            <Label Grid.Column="0" Content="Mode nuit" Margin="11,50,0,38"  VerticalAlignment="Bottom" Style="{StaticResource TextStyleNormal}"/>
+                            
+                            <ComboBox Grid.Column="1" Name ="DDL_Autolock" Height="30" Width="70" Margin="0,18,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"   VerticalContentAlignment="Center" Style="{StaticResource DropDownListStyleNormal}">
+                                <ComboBoxItem Content="Jamais"/>
+                                <ComboBoxItem Content="5 min."/>
+                                <ComboBoxItem Content="15 min."/>
+                                <ComboBoxItem Content="30 min."/>
+                                <ComboBoxItem Content="1 heure"/>
+                            </ComboBox>
+                            <CheckBox Grid.Column="1" Margin="0,0,0,42" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource CheckboxStyleSlider}"/>
+                         </Grid>
+                        
+                        <Separator Grid.Row="5" Height="2" Background="#DADADA" VerticalAlignment="Top" />
+                        
+                        <Grid Grid.Row="6"> <!-- Boutons paramètres compte -->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="33*"/> <!-- Bouton Se déconnecter -->
+                                <RowDefinition Height="33*"/> <!-- Bouton A propos -->
+                                <RowDefinition Height="33*"/> <!-- Bouton Supprimer le compte -->
+                            </Grid.RowDefinitions>
+
+                            <Button Grid.Row="0" Content="Se déconnecter" Height="45" VerticalAlignment="Top" Style="{StaticResource ButtonStyleNormal}" Click="Click_deconnexion"/>
+                            <Button Grid.Row="1" Content="A propos" Height="45" VerticalAlignment="Center" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Row="2" Content="Supprimer le compte" Height="45" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyleRed}"  Click="Click_delete_account"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Viewbox>
+        
+
+        
+    </Grid>   
+</Window>
