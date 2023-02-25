@@ -14,16 +14,46 @@ namespace PasswordManager
         {
             if (TextBoxSetMasterPass.Password == TextBoxConfirmMasterPass.Password)
             {
-                Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
-                DataGridWebsiteList.SelectedIndex = 0;
-                Update_Details_WebSiteItem(0);
-                Page_principale(sender, e);
+                
+                if (FirstConnection.IsPasswordSecure(TextBoxSetMasterPass.Password))
+                {
+                    FirstConnection.GenerateHashFile(TextBoxSetMasterPass.Password); //Genere le fichier contenant le hash du mot de passe maitre
+                    Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
+                    DataGridWebsiteList.SelectedIndex = 0;
+                    Update_Details_WebSiteItem(0);
+                    Page_principale(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("Le mot de passe doit contenir au moins 6 caractères, dont au moins une lettre et un chiffre");
+                }
+                
+            }else
+            {
+                MessageBox.Show("Le mot de passe et confirmation doivent être identique");
             }
         }
 
         private void Click_connexion(object sender, RoutedEventArgs e) ///Event du bouton OK de la fenêtre de connexion
         {
-            Page_principale(sender, e);
+            if (TextBoxMasterPass.Password != "")
+            {
+                if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password))
+                {
+                    Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
+                    DataGridWebsiteList.SelectedIndex = 0;
+                    Update_Details_WebSiteItem(0);
+                    Page_principale(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("Mot de passe incorrect");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez entrer un mot de passe");
+            }
         }
 
         private void Click_deconnexion(object sender, RoutedEventArgs e) //Event du bouton "Se déconnecter"

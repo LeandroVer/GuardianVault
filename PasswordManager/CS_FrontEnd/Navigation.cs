@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace PasswordManager
 {
@@ -35,6 +36,7 @@ namespace PasswordManager
             FenetrePrincipale.Visibility = Visibility.Hidden;
             ColorSeparation.Visibility = Visibility.Hidden;
             FenetreConnexion.Visibility = Visibility.Visible;
+            FenetrePremiereConnexion.Visibility = Visibility.Hidden;
         }
 
         private void Page_premiere_connexion(object sender, RoutedEventArgs e) //Navigation vers la page de première connexion (mot de passe à entrer et à confirmer)
@@ -42,6 +44,20 @@ namespace PasswordManager
             FenetrePrincipale.Visibility = Visibility.Hidden;
             ColorSeparation.Visibility = Visibility.Hidden;
             FenetrePremiereConnexion.Visibility = Visibility.Visible;
+        }
+        public void HashFileExists()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(path, "GuardianVault", "hash.gv");
+
+            if (File.Exists(path))
+            {
+                Page_connexion(this, new RoutedEventArgs());
+            }
+            else
+            {
+                Page_premiere_connexion(this, new RoutedEventArgs());
+            }
         }
     }
 }

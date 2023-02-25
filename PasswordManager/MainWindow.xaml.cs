@@ -25,6 +25,7 @@ namespace PasswordManager
             InitializeComponent();
             MinHeight = MinWidth / (1920 / 985.0);
             SizeChanged += MainWindow_SizeChanged;
+            HashFileExists();
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) //Conserver le bon ratio de l'écran
