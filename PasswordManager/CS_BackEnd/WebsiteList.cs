@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-
+using System.ComponentModel;
 
 namespace PasswordManager
 {
@@ -16,22 +16,34 @@ namespace PasswordManager
     {
         List<WebsiteItem> WebsiteList = new List<WebsiteItem>(); //Liste qui va contenir tous les détails des sites web
        
-        public void PasswordExctractor() //Déchiffrage des mots de passe et inscription dans la liste des sites web
+        public void PasswordExtractor() //Extrait les mdp de la base de donnée non chiffrée
         {
             WebsiteList.Clear();
-            string[] lines = System.IO.File.ReadAllLines(@"CS_BackEnd\\password_list_temp.txt"); //Temporaire : lecture des combos dans un txt
-            for (int i = 0; i < 11; i++) //Boucle 11 fois, dans le futur selon le nombre de ligne de la database
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
+
+            if (!File.Exists(path))
             {
-                WebsiteList.Add(new WebsiteItem() //Ajoute un WebsiteItem à la liste
+                return; // Quitte la fonction si le fichier n'existe pas
+            }
+
+            string[] lines = System.IO.File.ReadAllLines(path);
+            int lineCount = lines.Length;
+
+            for (int i = 0; i < lineCount; i++)
+            {
+                string[] fields = lines[i].Split(',');
+                WebsiteList.Add(new WebsiteItem()
                 {
                     logo = "/Assets/img_temp.png",
-                    nom = lines[6*i+0],
-                    url = lines[6*i+1],
-                    email = lines[6*i+2],
-                    password = lines[6*i+3],
-                    note = lines[6*i+4]
+                    nom = fields[0],
+                    email = fields[1],
+                    url = fields[2],
+                    password = fields[3],
+                    note = fields[4]
                 });
             }
+
+            
         }
     }
 }

@@ -1,77 +1,105 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.IO;
-using System.Security.Cryptography;
+using System.Windows;
 
 namespace PasswordManager
 {
     internal class DatabaseEncryption
     {
-        static void EncryptFile( string key) {
-            string inputFile = "database.gv";
-            string outputFile = "database.gv.enc";
-            byte[] keyBytes = HexStringToByteArray(key);
-
-            using (Aes aes = Aes.Create())
+        private static readonly byte[] _salt = Encoding.ASCII.GetBytes("o6806642kbM7c5");
+        private static readonly string _ivFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "iv.gv");
+        private static string _pwd = "";
+        public static void EncryptFile()
+        {
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv") ;
+            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
+            
+            string plainText = File.ReadAllText(inputPath);
+            if (string.IsNullOrEmpty(plainText))
             {
-                aes.Key = keyBytes;
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
+                MessageBox.Show("Encrypt - Erreur Texte");
+            }
+            if (string.IsNullOrEmpty(_pwd))
+            {
+                MessageBox.Show("Encrypt - Erreur MDP");
+            }
 
-                ICryptoTransform encryptor = aes.CreateEncryptor();
+            byte[] encrypted;
+            using (var aes = new System.Security.Cryptography.RijndaelManaged())
+            {
+                var key = new System.Security.Cryptography.Rfc2898DeriveBytes(_pwd, _salt);
+                aes.Key = key.GetBytes(aes.KeySize / 8);
+                aes.GenerateIV(); // Générer un IV aléatoire
+                File.WriteAllBytes(_ivFilePath, aes.IV); // Sauvegarder l'IV dans un fichier
 
-                using (FileStream inputFileStream = new FileStream(inputFile, FileMode.Open))
-                using (FileStream encryptedFileStream = new FileStream(outputFile, FileMode.Create))
-                using (CryptoStream cryptoStream = new CryptoStream(encryptedFileStream, encryptor, CryptoStreamMode.Write))
+                var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                
+                using (var msEncrypt = new System.IO.MemoryStream())
                 {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-
-                    while ((bytesRead = inputFileStream.Read(buffer, 0, buffer.Length)) > 0)
+                    using (var csEncrypt = new System.Security.Cryptography.CryptoStream(msEncrypt, encryptor, System.Security.Cryptography.CryptoStreamMode.Write))
                     {
-                        cryptoStream.Write(buffer, 0, bytesRead);
+                        using (var swEncrypt = new System.IO.StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plainText);
+                        }
+                        encrypted = msEncrypt.ToArray();
                     }
                 }
             }
+            //Ecrit la base de donnée chiffrée dans un fichier
+            string res = Convert.ToBase64String(encrypted);
+            File.WriteAllText(outputPath, res);
         }
 
-        static void DecryptFile(string key) {
-            string inputFile = "database.gv";
-            string outputFile = "database.gv.enc";
-            byte[] keyBytes = HexStringToByteArray(key);
+        public static void DecryptFile()
+        {
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
+            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv");
 
-            using (Aes aes = Aes.Create())
+            string cipherText = File.ReadAllText(inputPath);
+            if (string.IsNullOrEmpty(cipherText))
             {
-                aes.Key = keyBytes;
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
+                MessageBox.Show("Decrypt - Erreur Texte");
+            }
+            if (string.IsNullOrEmpty(_pwd))
+            {
+                MessageBox.Show("Decrypt - Erreur MDP");
+            }
+            string plaintext = null;
+            using (var aes = new System.Security.Cryptography.RijndaelManaged())
+            {
+                var key = new System.Security.Cryptography.Rfc2898DeriveBytes(_pwd, _salt);
+                aes.Key = key.GetBytes(aes.KeySize / 8);
+                aes.IV = File.ReadAllBytes(_ivFilePath); // Lire l'IV depuis le fichier
 
-                ICryptoTransform decryptor = aes.CreateDecryptor();
-
-                using (FileStream inputFileStream = new FileStream(inputFile, FileMode.Open))
-                using (FileStream decryptedFileStream = new FileStream(outputFile, FileMode.Create))
-                using (CryptoStream cryptoStream = new CryptoStream(inputFileStream, decryptor, CryptoStreamMode.Read))
+                var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                using (var msDecrypt = new System.IO.MemoryStream(Convert.FromBase64String(cipherText)))
                 {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-
-                    while ((bytesRead = cryptoStream.Read(buffer, 0, buffer.Length)) > 0)
+                    using (var csDecrypt = new System.Security.Cryptography.CryptoStream(msDecrypt, decryptor, System.Security.Cryptography.CryptoStreamMode.Read))
                     {
-                        decryptedFileStream.Write(buffer, 0, bytesRead);
+                        using (var srDecrypt = new System.IO.StreamReader(csDecrypt))
+                        {
+                            plaintext = srDecrypt.ReadToEnd();
+                        }
                     }
                 }
             }
-        }
-
-        static byte[] HexStringToByteArray(string hexString) {
-            int numBytes = hexString.Length / 2;
-            byte[] bytes = new byte[numBytes];
-
-            for (int i = 0; i < numBytes; i++)
+            //Ecrit la base de donnée déchiffrée dans un fichier
+            if (!File.Exists(outputPath))
             {
-                bytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+                File.Create(outputPath).Close();
             }
-
-            return bytes;
+            File.WriteAllText(outputPath, plaintext);
+        }
+        public static void SetPwd(string password_entered)
+        {
+            _pwd = password_entered;
         }
     }
 }

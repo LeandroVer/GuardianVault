@@ -5,7 +5,7 @@ namespace PasswordManager
 {
     internal class FirstConnection
     {
-        public static void GenerateHashFile(string password)
+        public static void GenerateFiles(string password)
         {
 
             string hash = PasswordVerifier.HashPassword(password);
@@ -17,12 +17,13 @@ namespace PasswordManager
             {
                 Directory.CreateDirectory(path);
             }
-
+            
+            
             string hashFile = Path.Combine(path, "hash.gv");
 
             using (StreamWriter sw = new StreamWriter(hashFile))
             {
-                sw.Write(hash);
+                sw.Write(hash); //Créer un fichier contenant le hash du mot de passe
             }
         }
         public static bool IsPasswordSecure(string password)

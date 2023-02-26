@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,9 @@ namespace PasswordManager
                 
                 if (FirstConnection.IsPasswordSecure(TextBoxSetMasterPass.Password))
                 {
-                    FirstConnection.GenerateHashFile(TextBoxSetMasterPass.Password); //Genere le fichier contenant le hash du mot de passe maitre
-                    Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
-                    DataGridWebsiteList.SelectedIndex = 0;
-                    Update_Details_WebSiteItem(0);
+                    DatabaseEncryption.SetPwd(TextBoxSetMasterPass.Password);
+                    FirstConnection.GenerateFiles(TextBoxSetMasterPass.Password); //Genere le fichier contenant le hash du mot de passe maitre
+                    DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
                     Page_principale(sender, e);
                 }
                 else
@@ -38,11 +38,13 @@ namespace PasswordManager
         {
             if (TextBoxMasterPass.Password != "")
             {
+                
                 if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password))
                 {
-                    Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
-                    DataGridWebsiteList.SelectedIndex = 0;
-                    Update_Details_WebSiteItem(0);
+                    DatabaseEncryption.SetPwd(TextBoxMasterPass.Password);
+                    DatabaseEncryption.DecryptFile(); //Déchiffre la base de données
+                    DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
+                    DeleteDatabase(); //Supprime la base de données non-chiffrée
                     Page_principale(sender, e);
                 }
                 else
@@ -86,6 +88,12 @@ namespace PasswordManager
         private void Click_DataGridWebsiteList(object sender, SelectionChangedEventArgs e) //Event lorsqu'un des sites web est cliqué dans la liste
         {
             Update_Details_WebSiteItem(DataGridWebsiteList.SelectedIndex); //Met à jour les détails du site web cliqué au centre de l'écran
+        }
+        public void DatabaseDisplay(object sender, RoutedEventArgs e)
+        {
+            Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
+            DataGridWebsiteList.SelectedIndex = 0;
+            Update_Details_WebSiteItem(0);
         }
     }
 }

@@ -22,18 +22,32 @@ namespace PasswordManager
             TextBoxLongueur.Text = ((int) SliderLongueur.Value).ToString();
         }
 
-        private void Update_Details_WebSiteItem(int indice) //Met à jour les détails du site web cliqué au centre de l'écran
+        private void Update_Details_WebSiteItem(int indice)
         {
-            NomWebSiteItem.Content = WebsiteList[indice].nom;
-            URLWebSiteItem.Content = WebsiteList[indice].url;
-            EmailWebSiteItem.Content = WebsiteList[indice].email;
-            PassordWebSiteItem.Content = WebsiteList[indice].password;
-            NoteWebSiteItem.Text = WebsiteList[indice].note;
+            if (WebsiteList == null || WebsiteList.Count == 0 || indice < 0 || indice >= WebsiteList.Count)
+            {
+                // Si la base de données est vide, on affiche des champs vides
+                NomWebSiteItem.Content = "";
+                URLWebSiteItem.Content = "";
+                EmailWebSiteItem.Content = "";
+                PassordWebSiteItem.Content = "";
+                NoteWebSiteItem.Text = "";
+            }
+            else
+            {
+                // Sinon, on affiche les détails des sites web correspondant à l'indice
+                NomWebSiteItem.Content = WebsiteList[indice].nom;
+                URLWebSiteItem.Content = WebsiteList[indice].url;
+                EmailWebSiteItem.Content = WebsiteList[indice].email;
+                PassordWebSiteItem.Content = WebsiteList[indice].password;
+                NoteWebSiteItem.Text = WebsiteList[indice].note;
+            }
         }
+
 
         private void Update_DataGrid_Items() //Met à jour la liste des site web affiché
         {
-            PasswordExctractor(); //Exctraction des mots de passe
+            PasswordExtractor(); //Extraction des mots de passe
             DataGridWebsiteList.ItemsSource = WebsiteList; //Associe la liste "WebsiteList" à la liste d'item de la datagrid
         }
     }
