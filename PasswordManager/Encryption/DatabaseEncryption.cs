@@ -23,7 +23,13 @@ namespace PasswordManager
             string plainText = File.ReadAllText(inputPath);
             if (string.IsNullOrEmpty(plainText))
             {
-                MessageBox.Show("Encrypt - Erreur Texte");
+                File.Create(outputPath).Close();
+                using (var aes = Aes.Create())
+                {
+                    aes.GenerateIV(); // Générer un IV aléatoire
+                    File.WriteAllBytes(_ivFilePath, aes.IV); // Sauvegarder l'IV dans un fichier
+                }
+                return;
             }
             if (string.IsNullOrEmpty(_pwd))
             {
@@ -71,10 +77,6 @@ namespace PasswordManager
             }
 
             string cipherText = File.ReadAllText(inputPath);
-            if (string.IsNullOrEmpty(cipherText))
-            {
-                MessageBox.Show("Decrypt - Erreur Texte");
-            }
             if (string.IsNullOrEmpty(_pwd))
             {
                 MessageBox.Show("Decrypt - Erreur MDP");

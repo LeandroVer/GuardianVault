@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,10 +19,8 @@ namespace PasswordManager
                 
                 if (FirstConnection.IsPasswordSecure(TextBoxSetMasterPass.Password))
                 {
-                    DatabaseEncryption.SetPwd(TextBoxSetMasterPass.Password);
                     FirstConnection.GenerateFiles(TextBoxSetMasterPass.Password); //Genere le fichier contenant le hash du mot de passe maitre
-                    DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
-                    Page_principale(sender, e);
+                    Connection(sender, e, TextBoxSetMasterPass.Password);
                 }
                 else
                 {
@@ -41,11 +40,7 @@ namespace PasswordManager
                 
                 if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password))
                 {
-                    DatabaseEncryption.SetPwd(TextBoxMasterPass.Password);
-                    DatabaseEncryption.DecryptFile(); //Déchiffre la base de données
-                    DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
-                    DeleteDatabase(); //Supprime la base de données non-chiffrée
-                    Page_principale(sender, e);
+                    Connection(sender, e, TextBoxMasterPass.Password);
                 }
                 else
                 {
@@ -65,11 +60,15 @@ namespace PasswordManager
 
         private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
         {
+            DeleteDatabaseEnc();
+            DeleteHash();
             Page_premiere_connexion(sender, e);
         }
 
         private void Click_edit_master_password(object sender, RoutedEventArgs e) ///Event du bouton "Modifier le mot de passe maître"
         {
+            DatabaseEncryption.DecryptFile();
+            DeleteHash();
             Page_premiere_connexion(sender, e);
         }
 

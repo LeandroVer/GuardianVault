@@ -81,10 +81,30 @@ namespace PasswordManager
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
             File.Delete(path); //Supprime la base de donnée non chiffrée
         }
-        private void DeleteDatabaseEnc()
+        public void DeleteDatabaseEnc()
         {
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv.enc");
-            File.Delete(path); //Supprime la base de donnée non chiffrée
+            File.Delete(path); //Supprime la base de donnée chiffrée
+        }
+        public void DeleteHash()
+        {
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "hash.gv");
+            File.Delete(path); //Supprime le hash
+        }
+        public void Connection(object sender, RoutedEventArgs e, string pwd)
+        {
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string databasePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "database.gv");
+            DatabaseEncryption.SetPwd(pwd);
+            if (File.Exists(databasePath))
+            {
+                MessageBox.Show("Changement du mot de passe maître effectué");
+                DatabaseEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
+            }
+            DatabaseEncryption.DecryptFile(); //Déchiffre la base de données
+            DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
+            DeleteDatabase(); //Supprime la base de données non-chiffrée
+            Page_principale(sender, e);
         }
     }
 }
