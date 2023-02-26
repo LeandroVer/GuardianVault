@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
 using System.Windows.Shapes;
-using PasswordManager.CS_BackEnd;
 
 namespace PasswordManager
 {
@@ -29,20 +28,38 @@ namespace PasswordManager
             // Vérifier si le fichier de base de données existe déjà
             if (File.Exists(databaseEncPath))
             {
-                DatabaseEncryption.DecryptFile(); //Déchiffre la base de donnée                                                             
-                using (StreamWriter file = new StreamWriter(databasePath, true))
+                DatabaseEncryption.DecryptFile(); //Déchiffre la base de donnée
+
+                // Ajouter la nouvelle entrée à la liste des sites web
+                List<WebsiteItem> websites = new List<WebsiteItem>();
+                using (StreamReader reader = new StreamReader(databasePath))
                 {
-                    file.WriteLine($"{nom},{identifiant},{url},{motDePasse},{note}");
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] parts = line.Split(',');
+                        WebsiteItem website = new WebsiteItem("/Assets/img_temp.png",parts[0], parts[1], parts[2], parts[3], parts[4]);
+                        websites.Add(website);
+                    }
+                }
+                websites.Add(new WebsiteItem("", nom, url, identifiant, motDePasse, note));
+
+                // Écrire la liste mise à jour dans le fichier de base de données
+                using (StreamWriter writer = new StreamWriter(databasePath))
+                {
+                    foreach (WebsiteItem website in websites)
+                    {
+                        writer.WriteLine($"{website.nom},{website.email},{website.url},{website.password},{website.note}");
+                    }
                 }
             }
             else
             {
                 // Si le fichier n'existe pas, créer un nouveau fichier et ajouter la nouvelle entrée
-                using (StreamWriter file = new StreamWriter(databasePath))
+                using (StreamWriter writer = new StreamWriter(databasePath))
                 {
-                    file.WriteLine($"{nom},{identifiant},{url},{motDePasse},{note}");
+                    writer.WriteLine($"{nom},{identifiant},{url},{motDePasse},{note}");
                 }
-
             }
 
             // Effacer les champs de texte pour permettre l'ajout de nouveaux mots de passe
@@ -55,6 +72,7 @@ namespace PasswordManager
             DatabaseDisplay(sender, e); //Actualise la liste des sites web dans la data grid
             DeleteDatabase(); //Supprime la base de donnée non chiffrée
         }
+
 
 
 

@@ -62,6 +62,13 @@ namespace PasswordManager
             string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
             string outputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv");
 
+            //Créer un fichier en sortie vide si le fichier d'entrée n'existe pas
+            if (!File.Exists(inputPath))
+            {
+                File.Create(outputPath).Close();
+                return;
+            }
+
             string cipherText = File.ReadAllText(inputPath);
             if (string.IsNullOrEmpty(cipherText))
             {

@@ -48,6 +48,7 @@ namespace PasswordManager
         private void Update_DataGrid_Items() //Met à jour la liste des site web affiché
         {
             PasswordExtractor(); //Extraction des mots de passe
+            DataGridWebsiteList.ItemsSource = null; //Dissocie la liste d'item de la datagrid
             DataGridWebsiteList.ItemsSource = WebsiteList; //Associe la liste "WebsiteList" à la liste d'item de la datagrid
         }
     }
