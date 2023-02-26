@@ -37,7 +37,7 @@ namespace PasswordManager
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        string[] parts = line.Split(',');
+                        string[] parts = line.Split('|');
                         WebsiteItem website = new WebsiteItem("/Assets/img_temp.png",parts[0], parts[1], parts[2], parts[3], parts[4]);
                         websites.Add(website);
                     }
@@ -49,7 +49,7 @@ namespace PasswordManager
                 {
                     foreach (WebsiteItem website in websites)
                     {
-                        writer.WriteLine($"{website.nom},{website.email},{website.url},{website.password},{website.note}");
+                        writer.WriteLine($"{website.nom}|{website.email}|{website.url}|{website.password}|{website.note}");
                     }
                 }
             }
@@ -58,7 +58,7 @@ namespace PasswordManager
                 // Si le fichier n'existe pas, créer un nouveau fichier et ajouter la nouvelle entrée
                 using (StreamWriter writer = new StreamWriter(databasePath))
                 {
-                    writer.WriteLine($"{nom},{identifiant},{url},{motDePasse},{note}");
+                    writer.WriteLine($"{nom}|{identifiant}|{url}|{motDePasse}|{note}");
                 }
             }
 

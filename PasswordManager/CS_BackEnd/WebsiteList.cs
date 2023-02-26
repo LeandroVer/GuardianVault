@@ -31,7 +31,7 @@ namespace PasswordManager
 
             for (int i = 0; i < lineCount; i++)
             {
-                string[] fields = lines[i].Split(',');
+                string[] fields = lines[i].Split('|');
                 WebsiteList.Add(new WebsiteItem()
                 {
                     logo = "/Assets/img_temp.png",

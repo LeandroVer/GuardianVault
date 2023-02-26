@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
+using System.Security.Cryptography;
 
 namespace PasswordManager
 {
@@ -16,9 +17,9 @@ namespace PasswordManager
         public static void EncryptFile()
         {
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv") ;
+            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv");
             string outputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
-            
+
             string plainText = File.ReadAllText(inputPath);
             if (string.IsNullOrEmpty(plainText))
             {
@@ -30,7 +31,7 @@ namespace PasswordManager
             }
 
             byte[] encrypted;
-            using (var aes = new System.Security.Cryptography.RijndaelManaged())
+            using (var aes = Aes.Create())
             {
                 var key = new System.Security.Cryptography.Rfc2898DeriveBytes(_pwd, _salt);
                 aes.Key = key.GetBytes(aes.KeySize / 8);
@@ -38,7 +39,7 @@ namespace PasswordManager
                 File.WriteAllBytes(_ivFilePath, aes.IV); // Sauvegarder l'IV dans un fichier
 
                 var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-                
+
                 using (var msEncrypt = new System.IO.MemoryStream())
                 {
                     using (var csEncrypt = new System.Security.Cryptography.CryptoStream(msEncrypt, encryptor, System.Security.Cryptography.CryptoStreamMode.Write))
@@ -78,8 +79,8 @@ namespace PasswordManager
             {
                 MessageBox.Show("Decrypt - Erreur MDP");
             }
-            string plaintext = null;
-            using (var aes = new System.Security.Cryptography.RijndaelManaged())
+            string plaintext = null ?? "";
+            using (var aes = Aes.Create())
             {
                 var key = new System.Security.Cryptography.Rfc2898DeriveBytes(_pwd, _salt);
                 aes.Key = key.GetBytes(aes.KeySize / 8);
