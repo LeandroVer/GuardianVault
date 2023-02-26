@@ -30,7 +30,7 @@ namespace PasswordManager
             const string lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
             const string uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string numberChars = "0123456789";
-            const string symbolChars = "!@#$%^&*()_+-=[]{};':./<>?";
+            const string symbolChars = "!@#$%^&*()_+-=[]{};:./<>?";
             StringBuilder passwordBuilder = new StringBuilder(length);
             Random random = new Random();
 

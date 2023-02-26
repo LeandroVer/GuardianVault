@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
 using System.Windows.Shapes;
+using System.Windows.Controls;
+using System.Xml.Linq;
 
 namespace PasswordManager
 {
@@ -35,7 +37,7 @@ namespace PasswordManager
                 using (StreamReader reader = new StreamReader(databasePath))
                 {
                     string line;
-                    while ((line = reader.ReadLine()) != null)
+                    while ((line = reader.ReadLine()!) != null)
                     {
                         string[] parts = line.Split('|');
                         WebsiteItem website = new WebsiteItem("/Assets/img_temp.png",parts[0], parts[1], parts[2], parts[3], parts[4]);
@@ -91,20 +93,44 @@ namespace PasswordManager
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "hash.gv");
             File.Delete(path); //Supprime le hash
         }
-        public void Connection(object sender, RoutedEventArgs e, string pwd)
+
+        private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string databasePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "database.gv");
-            DatabaseEncryption.SetPwd(pwd);
-            if (File.Exists(databasePath))
+
+            if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
-                MessageBox.Show("Changement du mot de passe maître effectué");
-                DatabaseEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
+                //Enleve l'élément sélectionné de la DataGrid
+                WebsiteList.Remove(selectedItem);
+
+                //Chiffre la base de donnée en enlevant l'élément sélectionné
+                DatabaseEncryption.DecryptFile();
+                RemoveWebsiteItem(selectedItem);
+                DatabaseEncryption.EncryptFile();
+
+                DatabaseDisplay(sender, e);
             }
-            DatabaseEncryption.DecryptFile(); //Déchiffre la base de données
-            DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
-            DeleteDatabase(); //Supprime la base de données non-chiffrée
-            Page_principale(sender, e);
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un site web à supprimer.");
+            }
+        }
+
+        public static void RemoveWebsiteItem(WebsiteItem selectedItem)
+        {
+            string websiteItemString = selectedItem.ConvertWebsiteItemToString(selectedItem);
+            string databaseFilePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
+            string[] databaseLines = File.ReadAllLines(databaseFilePath);
+
+            for (int i = 0; i < databaseLines.Length; i++)
+            {
+                if (databaseLines[i] == websiteItemString)
+                {
+                    databaseLines = databaseLines.Where((val, idx) => idx != i).ToArray();
+                    break;
+                }
+            }
+
+            File.WriteAllLines(databaseFilePath, databaseLines);
         }
     }
 }

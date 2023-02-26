@@ -168,22 +168,22 @@
 
                                 <StackPanel Grid.Column="0">
                                     <!-- Noms attributs -->
-                                    <Label Content="URL" VerticalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource TextStyleNormal}"/>
-                                    <Label Content="Identifiant" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    <Label Content="Identifiant" VerticalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource TextStyleNormal}"/>
+                                    <Label Content="URL" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
                                     <Label Content="Mot de passe" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1">
                                     <!-- Champs attributs -->
-                                    <Label Name="URLWebSiteItem" Content="adobe.com" VerticalAlignment="Center" Margin="0,9,0,0" Style="{StaticResource TextStyleInformation}"/>
-                                    <Label Name="EmailWebSiteItem" Content="email@email.com" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                    <Label Name="EmailWebSiteItem" Content="adobe.com" VerticalAlignment="Center" Margin="0,9,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                    <Label Name="URLWebSiteItem" Content="email@email.com" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
                                     <Label Name="PassordWebSiteItem" Content="gkhl3KLrf" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
                                 </StackPanel>
 
                             </Grid>
 
-                            <Button Grid.Row="3" Content="Copier le mot de passe"   Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}"/>
-                            <Button Grid.Row="4" Content="Modifier" Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Row="4" Content="Supprimer"   Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}" Click="Click_Supprimer"/>
+                            <Button Grid.Row="3" Content="Modifier" Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}"/>
 
                             <Label Grid.Row="5" Content="Notes" Margin="4,5,0,0" Style="{StaticResource TextStyleSousTitre}"/>
                             <TextBox Grid.Row="5" Name="NoteWebSiteItem" Width="305" HorizontalAlignment="Left" Margin="4,44,0,0" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Style="{StaticResource TextBoxStyleNotes}"/>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -93,6 +94,22 @@ namespace PasswordManager
             Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
             DataGridWebsiteList.SelectedIndex = 0;
             Update_Details_WebSiteItem(0);
+        }
+
+        public void Connection(object sender, RoutedEventArgs e, string pwd)
+        {
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string databasePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "database.gv");
+            DatabaseEncryption.SetPwd(pwd);
+            if (File.Exists(databasePath))
+            {
+                MessageBox.Show("Changement du mot de passe maître effectué");
+                DatabaseEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
+            }
+            DatabaseEncryption.DecryptFile(); //Déchiffre la base de données
+            DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
+            DeleteDatabase(); //Supprime la base de données non-chiffrée
+            Page_principale(sender, e);
         }
     }
 }
