@@ -17,7 +17,7 @@
             <StackPanel Grid.Column="0" Name="ColorSeparation" Visibility="Hidden" Background="#FFFFFF"/>
         </Grid>
 
-        <Grid Name="FenetrePremiereConnexion"  Visibility="Visible" Width="350" Height="200">
+        <Grid Name="FenetrePremiereConnexion"  Visibility="Hidden" Width="350" Height="200">
             <Rectangle Fill="White" RadiusX="15" RadiusY="15"/>
             <Grid>
                 <Grid.RowDefinitions>
@@ -66,7 +66,7 @@
         </Grid>
         
         
-        <Viewbox Name="FenetrePrincipale" Visibility="Hidden" >
+        <Viewbox Name="FenetrePrincipale" Visibility="Visible" >
             <Grid Width="1250" Height="620"> <!-- Fenêtre entière -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="63*"/> <!-- Colonne principale -->
@@ -242,7 +242,7 @@
                         <TextBox x:Name="Add_MDP" Grid.Row="4" Tag="Ecrire ou générer un mot de passe" Width="307" Margin="0,0,0,20" FontSize="13" VerticalContentAlignment="Center" MaxLines="1" Padding="4,6,35,6" Style="{StaticResource TextBoxStylePasswordCreation}"/>
 
                         <!-- Bouton Regénerer -->
-                        <Button Grid.Row="4" HorizontalAlignment="Right" Width="23" Height="23"  Margin="0,0,17,20" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}">
+                        <Button Grid.Row="4" HorizontalAlignment="Right" Width="23" Height="23"  Margin="0,0,17,20" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}"  Click="Click_Generate">
                             <Button.Background>
                                 <ImageBrush ImageSource="/Assets/refresh_button.png"/>
                             </Button.Background>
@@ -268,8 +268,8 @@
 
                                 <StackPanel Grid.Column="1"> <!-- Inputs gauche mot de passe -->
                                     <TextBox Name="TextBoxLongueur" Grid.Row="1" Text="16" Width="26" HorizontalAlignment="Left" Margin="0,7,0,0" FontWeight="Bold" MaxLength="2" MaxLines="1" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource TextBoxStyleSmall}" LostFocus="Update_Slider_Longueur"/>
-                                    <CheckBox Margin="0,27,0,0" Style="{StaticResource CheckboxStyleNormal}"/>
-                                    <CheckBox Margin="0,27,0,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                    <CheckBox Name="Checkbox_Nombre" Margin="0,27,0,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                    <CheckBox Name="Checkbox_Minuscule" Margin="0,27,0,0" Style="{StaticResource CheckboxStyleNormal}"/>
                                 </StackPanel>
 
 
@@ -294,8 +294,8 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Right"> <!-- Inputs droite mot de passe -->
-                                        <CheckBox Margin="0,11,15,0" Style="{StaticResource CheckboxStyleNormal}"/>
-                                        <CheckBox Margin="0,29,15,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                        <CheckBox Name="Checkbox_Symbole" Margin="0,11,15,0" Style="{StaticResource CheckboxStyleNormal}"/>
+                                        <CheckBox Name="Checkbox_Majuscule" Margin="0,29,15,0" Style="{StaticResource CheckboxStyleNormal}"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -307,7 +307,7 @@
                                 <ColumnDefinition Width="50*"/> <!-- Bouton Sauvegarder -->
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" Content="Regénérer" Margin="7,10,15,10" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Column="0" Content="Regénérer" Margin="7,10,15,10" Style="{StaticResource ButtonStyleNormal}"  Click="Click_Generate"/>
                             <Button Grid.Column="1" Content="Sauvegarder" Margin="15,10,0,7" Style="{StaticResource ButtonStyleBlue}" Click="Click_AddPwd"/>
 
 
