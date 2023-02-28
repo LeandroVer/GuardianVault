@@ -62,6 +62,7 @@ namespace PasswordManager
         private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
         {
             DeleteDatabaseEnc();
+            DeleteDatabase();
             DeleteHash();
             Page_premiere_connexion(sender, e);
         }

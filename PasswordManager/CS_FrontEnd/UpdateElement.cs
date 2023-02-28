@@ -22,25 +22,40 @@ namespace PasswordManager
             TextBoxLongueur.Text = ((int) SliderLongueur.Value).ToString();
         }
 
-        private void Update_Details_WebSiteItem(int indice)
+        public void Update_Details_WebSiteItem(int indice)
         {
-            if (WebsiteList == null || WebsiteList.Count == 0 || indice < 0 || indice >= WebsiteList.Count)
+            if (filteredList != null)
             {
-                // Si la base de données est vide, on affiche des champs vides
-                NomWebSiteItem.Content = "";
-                URLWebSiteItem.Content = "";
-                EmailWebSiteItem.Content = "";
-                PassordWebSiteItem.Content = "";
-                NoteWebSiteItem.Text = "";
+
+                NomWebSiteItem.Content = filteredList.ElementAt(indice).nom;
+                URLWebSiteItem.Content = filteredList.ElementAt(indice).url;
+                EmailWebSiteItem.Content = filteredList.ElementAt(indice).email;
+                PassordWebSiteItem.Content = filteredList.ElementAt(indice).password;
+                NoteWebSiteItem.Text = filteredList.ElementAt(indice).note;
+                Details_Column.Visibility = Visibility.Visible;
             }
             else
-            {
-                // Sinon, on affiche les détails des sites web correspondant à l'indice
-                NomWebSiteItem.Content = WebsiteList[indice].nom;
-                URLWebSiteItem.Content = WebsiteList[indice].url;
-                EmailWebSiteItem.Content = WebsiteList[indice].email;
-                PassordWebSiteItem.Content = WebsiteList[indice].password;
-                NoteWebSiteItem.Text = WebsiteList[indice].note;
+            { 
+                if (WebsiteList == null || WebsiteList.Count == 0 || indice < 0 || indice >= WebsiteList.Count)
+                {
+                    // Si la base de données est vide, on affiche des champs vides
+                    NomWebSiteItem.Content = "";
+                    URLWebSiteItem.Content = "";
+                    EmailWebSiteItem.Content = "";
+                    PassordWebSiteItem.Content = "";
+                    NoteWebSiteItem.Text = "";
+                    Details_Column.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    // Sinon, on affiche les détails des sites web correspondant à l'indice
+                    NomWebSiteItem.Content = WebsiteList[indice].nom;
+                    URLWebSiteItem.Content = WebsiteList[indice].url;
+                    EmailWebSiteItem.Content = WebsiteList[indice].email;
+                    PassordWebSiteItem.Content = WebsiteList[indice].password;
+                    NoteWebSiteItem.Text = WebsiteList[indice].note;
+                    Details_Column.Visibility = Visibility.Visible;
+                }
             }
         }
 

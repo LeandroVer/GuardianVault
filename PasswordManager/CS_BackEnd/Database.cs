@@ -81,17 +81,23 @@ namespace PasswordManager
         public void DeleteDatabase()
         {
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
-            File.Delete(path); //Supprime la base de donnée non chiffrée
+            if (File.Exists(path)) {
+                File.Delete(path); //Supprime la base de donnée non chiffrée
+            } 
         }
         public void DeleteDatabaseEnc()
         {
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv.enc");
-            File.Delete(path); //Supprime la base de donnée chiffrée
+            if (File.Exists(path)) {
+                File.Delete(path); //Supprime la base de donnée chiffrée
+            }
         }
         public void DeleteHash()
         {
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "hash.gv");
-            File.Delete(path); //Supprime le hash
+            if (File.Exists(path)) {
+                File.Delete(path); //Supprime le hash
+            }
         }
 
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
@@ -108,6 +114,7 @@ namespace PasswordManager
                 DatabaseEncryption.EncryptFile();
 
                 DatabaseDisplay(sender, e);
+                DeleteDatabase();
             }
             else
             {
