@@ -13,6 +13,22 @@ namespace PasswordManager
 {
     public partial class MainWindow : Window
     {
+        public void LoadMainPage(string pwd) //Charge la page principale
+        {
+            StartAutoLockTimer();
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
+            DatafileEncryption.SetPwd(pwd);
+            if (File.Exists(DatafilePath))
+            {
+                MessageBox.Show("Changement du mot de passe maître effectué");
+                DatafileEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
+            }
+            DatafileEncryption.DecryptFile(); //Déchiffre la base de données
+            DatafileDisplay(this, new RoutedEventArgs()); //Affiche la liste des sites web dans la data grid
+            DeleteDatafile(); //Supprime la base de données non-chiffrée
+            Page_principale(this, new RoutedEventArgs());
+        }
         private void Click_AddPwd(object sender, RoutedEventArgs e)
         {
             TextBox_SearchBar.Text = "";

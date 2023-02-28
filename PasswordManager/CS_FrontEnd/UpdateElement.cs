@@ -70,7 +70,7 @@ namespace PasswordManager
         }
 
         //SearchBar
-        private void Click_SearchBar(object sender, RoutedEventArgs e)
+        public void SearchBar()
         {
             ResetAutoLockTimer();
             string searchString = TextBox_SearchBar.Text.ToLower();

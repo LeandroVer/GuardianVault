@@ -1,11 +1,34 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 
 namespace PasswordManager
 {
     internal class FirstConnection
     {
-        public static void GenerateFiles(string password)
+        public static bool First_connection(string pwd_set,string pwd_confirm)
+        {
+            if (pwd_set == pwd_confirm)
+            {
+
+                if (IsPasswordSecure(pwd_set))
+                {
+                    GenerateFile(pwd_set); //Genere le fichier contenant le hash du mot de passe maitre
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Le mot de passe doit contenir au moins 6 caractères, dont au moins une lettre et un chiffre");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Le mot de passe et confirmation doivent être identique");
+            }
+            return false;
+        }
+        public static void GenerateFile(string password)
         {
 
             string hash = PasswordVerifier.HashPassword(password);

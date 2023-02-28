@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PasswordManager
 {
@@ -15,46 +16,48 @@ namespace PasswordManager
     {
         private void Click_premiere_connexion(object sender, RoutedEventArgs e) //Event du bouton OK de la fenêtre de 1ere connexion
         {
-            if (TextBoxSetMasterPass.Password == TextBoxConfirmMasterPass.Password)
-            {
-                
-                if (FirstConnection.IsPasswordSecure(TextBoxSetMasterPass.Password))
-                {
-                    FirstConnection.GenerateFiles(TextBoxSetMasterPass.Password); //Genere le fichier contenant le hash du mot de passe maitre
-                    Connection(sender, e, TextBoxSetMasterPass.Password);
-                }
-                else
-                {
-                    MessageBox.Show("Le mot de passe doit contenir au moins 6 caractères, dont au moins une lettre et un chiffre");
-                }
-                
-            }else
-            {
-                MessageBox.Show("Le mot de passe et confirmation doivent être identique");
+            if (FirstConnection.First_connection(TextBoxSetMasterPass.Password, TextBoxConfirmMasterPass.Password)){
+                LoadMainPage(TextBoxSetMasterPass.Password);
             }
         }
 
-        private void Click_connexion(object sender, RoutedEventArgs e) ///Event du bouton OK de la fenêtre de connexion
-        {
-            if (TextBoxMasterPass.Password != "")
-            {
-                
-                if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password))
-                {
-                    Connection(sender, e, TextBoxMasterPass.Password);
-                }
-                else
-                {
-                    MessageBox.Show("Mot de passe incorrect");
+        private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion
+        { 
+            if (e.Key == Key.Return) {
+                if (FirstConnection.First_connection(TextBoxSetMasterPass.Password, TextBoxConfirmMasterPass.Password)) {
+                    LoadMainPage(TextBoxSetMasterPass.Password);
                 }
             }
-            else
-            {
+        }
+
+
+        private void Click_connexion(object sender, RoutedEventArgs e) ///Event du bouton OK de la fenêtre de connexion
+        {
+            if (TextBoxMasterPass.Password != ""){
+                if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password)){
+                    LoadMainPage(TextBoxMasterPass.Password);
+                }else{
+                    MessageBox.Show("Mot de passe incorrect");
+                }
+            }else{
                 MessageBox.Show("Veuillez entrer un mot de passe");
             }
         }
 
-        
+        private void TextBoxMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de connexion
+        {
+            if (e.Key == Key.Return) {
+                if (TextBoxMasterPass.Password != "") {
+                    if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password)) {
+                        LoadMainPage(TextBoxMasterPass.Password);
+                    } else {
+                        MessageBox.Show("Mot de passe incorrect");
+                    }
+                } else {
+                    MessageBox.Show("Veuillez entrer un mot de passe");
+                }
+            }
+        }
 
         private void Click_DataGridWebsiteList(object sender, SelectionChangedEventArgs e) //Event lorsqu'un des sites web est cliqué dans la liste
         {
@@ -68,21 +71,18 @@ namespace PasswordManager
             Update_Details_WebSiteItem(0);
         }
 
-        public void Connection(object sender, RoutedEventArgs e, string pwd)
+        
+        private void Click_SearchBar_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la barre de recherche
         {
-            StartAutoLockTimer();
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
-            DatafileEncryption.SetPwd(pwd);
-            if (File.Exists(DatafilePath))
+            if (e.Key == Key.Return)
             {
-                MessageBox.Show("Changement du mot de passe maître effectué");
-                DatafileEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
+                SearchBar();
             }
-            DatafileEncryption.DecryptFile(); //Déchiffre la base de données
-            DatafileDisplay(sender, e); //Affiche la liste des sites web dans la data grid
-            DeleteDatafile(); //Supprime la base de données non-chiffrée
-            Page_principale(sender, e);
+        }
+
+        private void Click_SearchBar(object sender, RoutedEventArgs e) //Event lorsqu'on clique sur le bouton de recherche
+        {
+            SearchBar();
         }
     }
 }
