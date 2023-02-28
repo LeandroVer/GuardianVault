@@ -9,13 +9,8 @@ namespace PasswordManager
 {
     public partial class MainWindow : Window
     {
-        private void Click_Generate(object sender, RoutedEventArgs e) 
+        public void Generate(int length, bool useLowercase, bool useUppercase, bool useNumbers, bool useSymbols) 
         {
-            int length = int.Parse(TextBoxLongueur.Text);
-            bool useLowercase = Checkbox_Minuscule.IsChecked == true;
-            bool useUppercase = Checkbox_Majuscule.IsChecked == true;
-            bool useNumbers = Checkbox_Nombre.IsChecked == true;
-            bool useSymbols = Checkbox_Symbole.IsChecked == true;
             if (useLowercase == false && useUppercase == false && useNumbers == false && useSymbols == false)
             {
                 MessageBox.Show("Veuillez cocher au moins une case pour générer votre mot de passe");

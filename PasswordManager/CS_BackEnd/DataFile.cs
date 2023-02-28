@@ -29,16 +29,11 @@ namespace PasswordManager
             DeleteDatafile(); //Supprime la base de données non-chiffrée
             Page_principale(this, new RoutedEventArgs());
         }
-        private void Click_AddPwd(object sender, RoutedEventArgs e)
+        public void AddPwd(string nom, string identifiant, string url, string motDePasse)
         {
-            TextBox_SearchBar.Text = "";
+            
             DeleteFilteredList();
             ResetAutoLockTimer();
-            // Récupérer les valeurs des champs de texte
-            string nom = Add_NomSite.Text;
-            string identifiant = Add_ID.Text;
-            string url = Add_URL.Text;
-            string motDePasse = Add_MDP.Text;
             string note = ""; // Note vide par défaut
 
             // Définir le chemin d'accès complet pour le fichier de base de données
@@ -90,7 +85,7 @@ namespace PasswordManager
             Add_MDP.Text = "";
 
             DatafileEncryption.EncryptFile(); //Chiffre la base de donnée
-            DatafileDisplay(sender, e); //Actualise la liste des sites web dans la data grid
+            DatafileDisplay(this, new RoutedEventArgs()); //Actualise la liste des sites web dans la data grid
             DeleteDatafile(); //Supprime la base de donnée non chiffrée
         }
 
@@ -119,11 +114,10 @@ namespace PasswordManager
             }
         }
 
-        private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
+        public void Supprimer() //Event du bouton Supprimer
         {
             ResetAutoLockTimer();
             DeleteFilteredList();
-            TextBox_SearchBar.Text = "";
 
             if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
@@ -135,7 +129,7 @@ namespace PasswordManager
                 RemoveWebsiteItem(selectedItem);
                 DatafileEncryption.EncryptFile();
 
-                DatafileDisplay(sender, e);
+                DatafileDisplay(this, new RoutedEventArgs());
                 DeleteDatafile();
             }
             else

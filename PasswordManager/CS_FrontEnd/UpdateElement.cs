@@ -102,6 +102,7 @@ namespace PasswordManager
 
         private void DeleteFilteredList()
         {
+            TextBox_SearchBar.Text = "";
             filteredList = null!;
         }
     }
