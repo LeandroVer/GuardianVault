@@ -61,15 +61,15 @@ namespace PasswordManager
 
         private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
         {
-            DeleteDatabaseEnc();
-            DeleteDatabase();
+            DeleteDatafileEnc();
+            DeleteDatafile();
             DeleteHash();
             Page_premiere_connexion(sender, e);
         }
 
         private void Click_edit_master_password(object sender, RoutedEventArgs e) ///Event du bouton "Modifier le mot de passe maître"
         {
-            DatabaseEncryption.DecryptFile();
+            DatafileEncryption.DecryptFile();
             DeleteHash();
             Page_premiere_connexion(sender, e);
         }
@@ -90,7 +90,7 @@ namespace PasswordManager
         {
             Update_Details_WebSiteItem(DataGridWebsiteList.SelectedIndex); //Met à jour les détails du site web cliqué au centre de l'écran
         }
-        public void DatabaseDisplay(object sender, RoutedEventArgs e)
+        public void DatafileDisplay(object sender, RoutedEventArgs e)
         {
             Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
             DataGridWebsiteList.SelectedIndex = 0;
@@ -100,16 +100,16 @@ namespace PasswordManager
         public void Connection(object sender, RoutedEventArgs e, string pwd)
         {
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string databasePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "database.gv");
-            DatabaseEncryption.SetPwd(pwd);
-            if (File.Exists(databasePath))
+            string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
+            DatafileEncryption.SetPwd(pwd);
+            if (File.Exists(DatafilePath))
             {
                 MessageBox.Show("Changement du mot de passe maître effectué");
-                DatabaseEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
+                DatafileEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
             }
-            DatabaseEncryption.DecryptFile(); //Déchiffre la base de données
-            DatabaseDisplay(sender, e); //Affiche la liste des sites web dans la data grid
-            DeleteDatabase(); //Supprime la base de données non-chiffrée
+            DatafileEncryption.DecryptFile(); //Déchiffre la base de données
+            DatafileDisplay(sender, e); //Affiche la liste des sites web dans la data grid
+            DeleteDatafile(); //Supprime la base de données non-chiffrée
             Page_principale(sender, e);
         }
     }

@@ -15,6 +15,7 @@ namespace PasswordManager
     {
         private void Click_AddPwd(object sender, RoutedEventArgs e)
         {
+            DeleteFilteredList();
             // Récupérer les valeurs des champs de texte
             string nom = Add_NomSite.Text;
             string identifiant = Add_ID.Text;
@@ -24,17 +25,17 @@ namespace PasswordManager
 
             // Définir le chemin d'accès complet pour le fichier de base de données
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string databasePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "database.gv");
-            string databaseEncPath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
+            string datafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
+            string datafileEncPath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
 
             // Vérifier si le fichier de base de données existe déjà
-            if (File.Exists(databaseEncPath))
+            if (File.Exists(datafileEncPath))
             {
-                DatabaseEncryption.DecryptFile(); //Déchiffre la base de donnée
+                DatafileEncryption.DecryptFile(); //Déchiffre la base de donnée
 
                 // Ajouter la nouvelle entrée à la liste des sites web
                 List<WebsiteItem> websites = new List<WebsiteItem>();
-                using (StreamReader reader = new StreamReader(databasePath))
+                using (StreamReader reader = new StreamReader(datafilePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()!) != null)
@@ -47,7 +48,7 @@ namespace PasswordManager
                 websites.Add(new WebsiteItem("", nom, url, identifiant, motDePasse, note));
 
                 // Écrire la liste mise à jour dans le fichier de base de données
-                using (StreamWriter writer = new StreamWriter(databasePath))
+                using (StreamWriter writer = new StreamWriter(datafilePath))
                 {
                     foreach (WebsiteItem website in websites)
                     {
@@ -58,7 +59,7 @@ namespace PasswordManager
             else
             {
                 // Si le fichier n'existe pas, créer un nouveau fichier et ajouter la nouvelle entrée
-                using (StreamWriter writer = new StreamWriter(databasePath))
+                using (StreamWriter writer = new StreamWriter(datafilePath))
                 {
                     writer.WriteLine($"{nom}|{identifiant}|{url}|{motDePasse}|{note}");
                 }
@@ -70,24 +71,24 @@ namespace PasswordManager
             Add_URL.Text = "";
             Add_MDP.Text = "";
 
-            DatabaseEncryption.EncryptFile(); //Chiffre la base de donnée
-            DatabaseDisplay(sender, e); //Actualise la liste des sites web dans la data grid
-            DeleteDatabase(); //Supprime la base de donnée non chiffrée
+            DatafileEncryption.EncryptFile(); //Chiffre la base de donnée
+            DatafileDisplay(sender, e); //Actualise la liste des sites web dans la data grid
+            DeleteDatafile(); //Supprime la base de donnée non chiffrée
         }
 
 
 
 
-        public void DeleteDatabase()
+        public void DeleteDatafile()
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv");
             if (File.Exists(path)) {
                 File.Delete(path); //Supprime la base de donnée non chiffrée
             } 
         }
-        public void DeleteDatabaseEnc()
+        public void DeleteDatafileEnc()
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv.enc");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv.enc");
             if (File.Exists(path)) {
                 File.Delete(path); //Supprime la base de donnée chiffrée
             }
@@ -102,19 +103,19 @@ namespace PasswordManager
 
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
-
+            DeleteFilteredList();
             if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
                 //Enleve l'élément sélectionné de la DataGrid
                 WebsiteList.Remove(selectedItem);
 
                 //Chiffre la base de donnée en enlevant l'élément sélectionné
-                DatabaseEncryption.DecryptFile();
+                DatafileEncryption.DecryptFile();
                 RemoveWebsiteItem(selectedItem);
-                DatabaseEncryption.EncryptFile();
+                DatafileEncryption.EncryptFile();
 
-                DatabaseDisplay(sender, e);
-                DeleteDatabase();
+                DatafileDisplay(sender, e);
+                DeleteDatafile();
             }
             else
             {
@@ -125,19 +126,19 @@ namespace PasswordManager
         public static void RemoveWebsiteItem(WebsiteItem selectedItem)
         {
             string websiteItemString = selectedItem.ConvertWebsiteItemToString(selectedItem);
-            string databaseFilePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
-            string[] databaseLines = File.ReadAllLines(databaseFilePath);
+            string datafileFilePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv");
+            string[] datafileLines = File.ReadAllLines(datafileFilePath);
 
-            for (int i = 0; i < databaseLines.Length; i++)
+            for (int i = 0; i < datafileLines.Length; i++)
             {
-                if (databaseLines[i] == websiteItemString)
+                if (datafileLines[i] == websiteItemString)
                 {
-                    databaseLines = databaseLines.Where((val, idx) => idx != i).ToArray();
+                    datafileLines = datafileLines.Where((val, idx) => idx != i).ToArray();
                     break;
                 }
             }
 
-            File.WriteAllLines(databaseFilePath, databaseLines);
+            File.WriteAllLines(datafileFilePath, datafileLines);
         }
     }
 }

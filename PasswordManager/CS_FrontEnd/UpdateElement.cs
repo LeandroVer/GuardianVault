@@ -12,6 +12,7 @@ namespace PasswordManager
 {
     public partial class MainWindow : Window
     {
+        private List<WebsiteItem> filteredList = null;
         private void Update_Slider_Longueur(object sender, RoutedEventArgs e) //Ajuster la valeur du slider de la longueur du mot de passe selon la valeur inscrite dans la TextBox
         {
             SliderLongueur.Value = Convert.ToDouble(TextBoxLongueur.Text);
@@ -66,6 +67,41 @@ namespace PasswordManager
             PasswordExtractor(); //Extraction des mots de passe
             DataGridWebsiteList.ItemsSource = null; //Dissocie la liste d'item de la datagrid
             DataGridWebsiteList.ItemsSource = WebsiteList; //Associe la liste "WebsiteList" à la liste d'item de la datagrid
+        }
+
+        //SearchBar
+        private void Click_SearchBar(object sender, RoutedEventArgs e)
+        {
+            string searchString = TextBox_SearchBar.Text.ToLower();
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                // Si la recherche est vide, afficher tous les éléments
+                filteredList = null!;
+                DataGridWebsiteList.ItemsSource = WebsiteList;
+            }
+            else
+            {
+                // Sinon, filtrer la liste en supprimant tous les éléments qui ne correspondent pas à la recherche
+                filteredList = WebsiteList.Where(item =>
+                    (item.nom.ToLower().Contains(searchString))).ToList();
+
+                // supprimer tous les éléments de la DataGrid sauf ceux ayant une correspondance avec la recherche effectuée
+                DataGridWebsiteList.ItemsSource = filteredList;
+                if (filteredList.Any())
+                {
+                    int index = WebsiteList.IndexOf(filteredList.First());
+                    DataGridWebsiteList.SelectedItem = DataGridWebsiteList.Items[0];
+                    DataGridWebsiteList.ScrollIntoView(DataGridWebsiteList.Items[0]);
+                    Update_Details_WebSiteItem(index);
+
+                }
+            }
+        }
+
+        private void DeleteFilteredList()
+        {
+            filteredList = null!;
         }
     }
 }

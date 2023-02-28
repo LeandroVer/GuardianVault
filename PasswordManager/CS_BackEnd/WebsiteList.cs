@@ -19,7 +19,7 @@ namespace PasswordManager
         public void PasswordExtractor() //Extrait les mdp de la base de donnée non chiffrée
         {
             WebsiteList.Clear();
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "database.gv");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv");
 
             if (!File.Exists(path))
             {

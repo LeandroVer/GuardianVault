@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace PasswordManager
 {
-    internal class DatabaseEncryption
+    internal class DatafileEncryption
     {
         private static readonly byte[] _salt = Encoding.ASCII.GetBytes("o6806642kbM7c5");
         private static readonly string _ivFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "iv.gv");
@@ -17,8 +17,8 @@ namespace PasswordManager
         public static void EncryptFile()
         {
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv");
-            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
+            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
+            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
 
             string plainText = File.ReadAllText(inputPath);
             if (string.IsNullOrEmpty(plainText))
@@ -66,8 +66,8 @@ namespace PasswordManager
         public static void DecryptFile()
         {
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv.enc");
-            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "database.gv");
+            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
+            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
 
             //Créer un fichier en sortie vide si le fichier d'entrée n'existe pas
             if (!File.Exists(inputPath))
