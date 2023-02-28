@@ -75,8 +75,35 @@ namespace PasswordManager
             DeleteDatafile();
         }
 
-        
-        
+        private void Click_importer_coffre(object sender, EventArgs e)
+        {
+            DeleteFilteredList();
+            // Création de la boîte de dialogue
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+
+            // Configuration des options de la boîte de dialogue
+            openFileDialog.Title = "Importer un fichier";
+            openFileDialog.Filter = "GuardianVault files (.gv)|*.gv";
+
+            // Affichage de la boîte de dialogue et récupération du résultat
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            // Récupération du chemin du fichier sélectionné
+            if (result == true)
+            {
+                string filePath = openFileDialog.FileName;
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string destinationFilePath = Path.Combine(appDataPath, "GuardianVault", "datafile.gv");
+                DeleteDatafile();
+                File.Copy(filePath, destinationFilePath, true);
+                DatafileEncryption.EncryptFile();
+                DatafileDisplay(this, new RoutedEventArgs());
+                DeleteDatafile();
+            }
+
+        }
+
+
 
     }
 }

@@ -334,7 +334,10 @@
                             <RowDefinition Height="28*"/> <!-- Boutons paramètres compte -->
                             <RowDefinition Height="6*"/> <!-- Marge -->
                         </Grid.RowDefinitions>
-                    
+
+                        <Button Grid.Row="0" Content="Importer le coffre" Margin="0,8,0,0" Style="{StaticResource ButtonStyleNormal}" Click="Click_importer_coffre"/>
+
+
                         <Label Grid.Row="1" Content="Paramètres"  Margin="-30,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextStyleTitre}"/>
                         
                         <Label Grid.Row="2" Content="Paramètres du coffre" VerticalAlignment="Center" Style="{StaticResource TextStyleSousTitre}"/>
@@ -348,7 +351,7 @@
 
                             <Button Grid.Row="0" Content="Modifier le mot de passe maître" Margin="0,0,0,8" Style="{StaticResource ButtonStyleNormal}" Click="Click_edit_master_password"/>
                             <Button Grid.Row="1" Content="Exporter le coffre" Margin="0,8,0,0" Style="{StaticResource ButtonStyleNormal}" Click="Click_exporter_coffre"/>
-                        </Grid>
+                         </Grid>
                         
                         <Grid Grid.Row="4"> <!-- Autres paramètres -->
                             <Grid.ColumnDefinitions>
