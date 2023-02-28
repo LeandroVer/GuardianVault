@@ -15,6 +15,7 @@ namespace PasswordManager
     {
         private void Click_AddPwd(object sender, RoutedEventArgs e)
         {
+            TextBox_SearchBar.Text = "";
             DeleteFilteredList();
             ResetAutoLockTimer();
             // Récupérer les valeurs des champs de texte
@@ -106,6 +107,8 @@ namespace PasswordManager
         {
             ResetAutoLockTimer();
             DeleteFilteredList();
+            TextBox_SearchBar.Text = "";
+
             if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
                 //Enleve l'élément sélectionné de la DataGrid
