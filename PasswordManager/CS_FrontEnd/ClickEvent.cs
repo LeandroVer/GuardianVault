@@ -54,37 +54,7 @@ namespace PasswordManager
             }
         }
 
-        private void Click_deconnexion(object sender, RoutedEventArgs e) //Event du bouton "Se déconnecter"
-        {
-            Page_connexion(sender, e);
-        }
-
-        private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
-        {
-            DeleteDatafileEnc();
-            DeleteDatafile();
-            DeleteHash();
-            Page_premiere_connexion(sender, e);
-        }
-
-        private void Click_edit_master_password(object sender, RoutedEventArgs e) ///Event du bouton "Modifier le mot de passe maître"
-        {
-            DatafileEncryption.DecryptFile();
-            DeleteHash();
-            Page_premiere_connexion(sender, e);
-        }
-
-        private void Click_parametres(object sender, RoutedEventArgs e) //Event du bouton Paramètres (écrou)
-        {            
-            if (GridSecondaire.Visibility == Visibility.Visible) //Affichage de l'une ou l'autre colonne de droite (Paramètres ou Ajout de site)
-            {
-                Page_parametres(sender, e);
-            }
-            else
-            {
-                Page_principale(sender, e);
-            }
-        }
+        
 
         private void Click_DataGridWebsiteList(object sender, SelectionChangedEventArgs e) //Event lorsqu'un des sites web est cliqué dans la liste
         {
