@@ -48,7 +48,7 @@ namespace PasswordManager
             DatafileEncryption.DecryptFile();
             // Afficher la boîte de dialogue de sauvegarde de fichier
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "datafile"; // Nom de fichier par défaut
+            dlg.FileName = "datafile_export"; // Nom de fichier par défaut
             dlg.DefaultExt = ".gv"; // Extension de fichier par défaut
             dlg.Filter = "GuardianVault files (.gv)|*.gv"; // Filtre de fichiers
             Nullable<bool> result = dlg.ShowDialog();
