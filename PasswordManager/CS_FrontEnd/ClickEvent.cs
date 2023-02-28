@@ -58,6 +58,7 @@ namespace PasswordManager
 
         private void Click_DataGridWebsiteList(object sender, SelectionChangedEventArgs e) //Event lorsqu'un des sites web est cliqué dans la liste
         {
+            ResetAutoLockTimer();
             Update_Details_WebSiteItem(DataGridWebsiteList.SelectedIndex); //Met à jour les détails du site web cliqué au centre de l'écran
         }
         public void DatafileDisplay(object sender, RoutedEventArgs e)
@@ -69,6 +70,7 @@ namespace PasswordManager
 
         public void Connection(object sender, RoutedEventArgs e, string pwd)
         {
+            StartAutoLockTimer();
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
             DatafileEncryption.SetPwd(pwd);

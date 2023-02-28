@@ -11,13 +11,15 @@ namespace PasswordManager
 {
     public partial class MainWindow : Window
     {
-        private void Click_deconnexion(object sender, RoutedEventArgs e) //Event du bouton "Se déconnecter"
+        public void Click_deconnexion(object sender, RoutedEventArgs e) //Event du bouton "Se déconnecter"
         {
+            StopAutoLockTimer();
             Page_connexion(sender, e);
         }
 
         private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
         {
+            StopAutoLockTimer();
             DeleteDatafileEnc();
             DeleteDatafile();
             DeleteHash();
@@ -26,6 +28,7 @@ namespace PasswordManager
 
         private void Click_edit_master_password(object sender, RoutedEventArgs e) ///Event du bouton "Modifier le mot de passe maître"
         {
+            StopAutoLockTimer();
             DatafileEncryption.DecryptFile();
             DeleteHash();
             Page_premiere_connexion(sender, e);
@@ -33,6 +36,7 @@ namespace PasswordManager
 
         private void Click_parametres(object sender, RoutedEventArgs e) //Event du bouton Paramètres (écrou)
         {
+            ResetAutoLockTimer();
             if (GridSecondaire.Visibility == Visibility.Visible) //Affichage de l'une ou l'autre colonne de droite (Paramètres ou Ajout de site)
             {
                 Page_parametres(sender, e);
@@ -45,6 +49,7 @@ namespace PasswordManager
 
         private void Click_exporter_coffre(object sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             DatafileEncryption.DecryptFile();
             // Afficher la boîte de dialogue de sauvegarde de fichier
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -77,6 +82,7 @@ namespace PasswordManager
 
         private void Click_importer_coffre(object sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             DeleteFilteredList();
             // Création de la boîte de dialogue
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();

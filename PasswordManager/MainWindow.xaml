@@ -364,10 +364,10 @@
                             
                             <ComboBox Grid.Column="1" Name ="DDL_Autolock" Height="30" Width="70" Margin="0,18,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"   VerticalContentAlignment="Center" Style="{StaticResource DropDownListStyleNormal}">
                                 <ComboBoxItem Content="Jamais"/>
-                                <ComboBoxItem Content="5 min."/>
+                                <ComboBoxItem Content="1 h"/>
                                 <ComboBoxItem Content="15 min."/>
-                                <ComboBoxItem Content="30 min."/>
-                                <ComboBoxItem Content="1 heure"/>
+                                <ComboBoxItem Content="5 min."/>
+                                <ComboBoxItem Content="10 sec."/>
                             </ComboBox>
                             <CheckBox Grid.Column="1" Margin="0,0,0,42" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource CheckboxStyleSlider}"/>
                          </Grid>

@@ -72,6 +72,7 @@ namespace PasswordManager
         //SearchBar
         private void Click_SearchBar(object sender, RoutedEventArgs e)
         {
+            ResetAutoLockTimer();
             string searchString = TextBox_SearchBar.Text.ToLower();
 
             if (string.IsNullOrEmpty(searchString))

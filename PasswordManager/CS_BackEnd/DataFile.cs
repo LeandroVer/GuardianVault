@@ -16,6 +16,7 @@ namespace PasswordManager
         private void Click_AddPwd(object sender, RoutedEventArgs e)
         {
             DeleteFilteredList();
+            ResetAutoLockTimer();
             // Récupérer les valeurs des champs de texte
             string nom = Add_NomSite.Text;
             string identifiant = Add_ID.Text;
@@ -103,6 +104,7 @@ namespace PasswordManager
 
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
+            ResetAutoLockTimer();
             DeleteFilteredList();
             if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
