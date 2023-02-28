@@ -24,9 +24,9 @@ namespace PasswordManager
 
         public void Update_Details_WebSiteItem(int indice)
         {
-            if (filteredList != null)
+            if (filteredList != null && indice >= 0 && indice < filteredList.Count)
             {
-
+                //Si il y a une recherche est en cours
                 NomWebSiteItem.Content = filteredList.ElementAt(indice).nom;
                 URLWebSiteItem.Content = filteredList.ElementAt(indice).url;
                 EmailWebSiteItem.Content = filteredList.ElementAt(indice).email;
@@ -35,7 +35,8 @@ namespace PasswordManager
                 Details_Column.Visibility = Visibility.Visible;
             }
             else
-            { 
+            {
+                //S'il n'y a pas de recherche en cours
                 if (WebsiteList == null || WebsiteList.Count == 0 || indice < 0 || indice >= WebsiteList.Count)
                 {
                     // Si la base de données est vide, on affiche des champs vides
