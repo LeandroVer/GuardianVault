@@ -32,7 +32,7 @@ namespace PasswordManager
         {
 
             string hash = PasswordVerifier.HashPassword(password);
-
+            
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, "GuardianVault");
 

@@ -1,53 +1,29 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace PasswordManager
 {
     public partial class MainWindow : Window
     {
-        public void Click_deconnexion(object sender, RoutedEventArgs e) //Event du bouton "Se déconnecter"
-        {
-            StopAutoLockTimer();
-            Page_connexion(sender, e);
-        }
-
-        private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
+        public void Delete_account() //Event du bouton "Supprimer le compte"
         {
             StopAutoLockTimer();
             DeleteDatafileEnc();
             DeleteDatafile();
             DeleteHash();
-            Page_premiere_connexion(sender, e);
+            Visibility_premiere_connexion();
         }
 
-        private void Click_edit_master_password(object sender, RoutedEventArgs e) ///Event du bouton "Modifier le mot de passe maître"
+        public void Edit_master_password() ///Event du bouton "Modifier le mot de passe maître"
         {
             StopAutoLockTimer();
             DatafileEncryption.DecryptFile();
             DeleteHash();
-            Page_premiere_connexion(sender, e);
+            Visibility_premiere_connexion();
         }
 
-        private void Click_parametres(object sender, RoutedEventArgs e) //Event du bouton Paramètres (écrou)
-        {
-            ResetAutoLockTimer();
-            if (GridSecondaire.Visibility == Visibility.Visible) //Affichage de l'une ou l'autre colonne de droite (Paramètres ou Ajout de site)
-            {
-                Page_parametres(sender, e);
-            }
-            else
-            {
-                Page_principale(sender, e);
-            }
-        }
-
-        private void Click_exporter_coffre(object sender, EventArgs e)
+        public void Exporter_coffre()
         {
             ResetAutoLockTimer();
             DatafileEncryption.DecryptFile();
@@ -64,7 +40,7 @@ namespace PasswordManager
                 try
                 {
                     // Copier le fichier de données dans l'emplacement spécifié
-                    string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string appDataPath = appDataFolder;
                     string sourceFilePath = Path.Combine(appDataPath, "GuardianVault", "datafile.gv");
                     string destinationFilePath = dlg.FileName;
                     File.Copy(sourceFilePath, destinationFilePath, true);
@@ -80,7 +56,7 @@ namespace PasswordManager
             DeleteDatafile();
         }
 
-        private void Click_importer_coffre(object sender, EventArgs e)
+        public void Importer_coffre()
         {
             ResetAutoLockTimer();
             DeleteFilteredList();
@@ -98,12 +74,12 @@ namespace PasswordManager
             if (result == true)
             {
                 string filePath = openFileDialog.FileName;
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string appDataPath = appDataFolder;
                 string destinationFilePath = Path.Combine(appDataPath, "GuardianVault", "datafile.gv");
                 DeleteDatafile();
                 File.Copy(filePath, destinationFilePath, true);
                 DatafileEncryption.EncryptFile();
-                DatafileDisplay(this, new RoutedEventArgs());
+                DatagridDisplay();
                 DeleteDatafile();
             }
 

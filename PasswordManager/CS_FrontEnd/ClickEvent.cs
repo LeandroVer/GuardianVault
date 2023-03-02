@@ -1,15 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Security.Policy;
 
 namespace PasswordManager
 {
@@ -45,9 +37,7 @@ namespace PasswordManager
         }
         public void DatafileDisplay(object sender, RoutedEventArgs e)
         {
-            Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
-            DataGridWebsiteList.SelectedIndex = 0;
-            Update_Details_WebSiteItem(0);
+            DatagridDisplay();
         }
 
         private void Click_SearchBar(object sender, RoutedEventArgs e) //Event lorsqu'on clique sur le bouton de recherche
@@ -67,8 +57,46 @@ namespace PasswordManager
         {
             Generate(int.Parse(TextBoxLongueur.Text), Checkbox_Minuscule.IsChecked == true, Checkbox_Majuscule.IsChecked == true, Checkbox_Nombre.IsChecked == true, Checkbox_Symbole.IsChecked == true);
         }
-            //------------- Detection touche "entrée" ---------------
-            private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion
+        //------------- Fenetre paramètres ---------------
+        private void Click_parametres(object sender, RoutedEventArgs e) //Event du bouton Paramètres (écrou)
+        {
+            ResetAutoLockTimer();
+            if (GridSecondaire.Visibility == Visibility.Visible) //Affichage de l'une ou l'autre colonne de droite (Paramètres ou Ajout de site)
+            {
+                Visibility_parametres();
+            }
+            else
+            {
+                Visibility_principale();
+            }
+        }
+        private void Click_deconnexion(object sender, RoutedEventArgs e) //Event du bouton "Se déconnecter"
+        {
+            StopAutoLockTimer();
+            Visibility_connexion();
+        }
+
+        private void Click_delete_account(object sender, RoutedEventArgs e) //Event du bouton "Supprimer le compte"
+        {
+            Delete_account();
+        }
+
+        private void Click_edit_master_password(object sender, RoutedEventArgs e) ///Event du bouton "Modifier le mot de passe maître"
+        {
+            Edit_master_password();
+        }
+
+        private void Click_exporter_coffre(object sender, EventArgs e)
+        {
+            Exporter_coffre();
+        }
+
+        private void Click_importer_coffre(object sender, EventArgs e)
+        {
+            Importer_coffre();
+        }
+        //------------- Detection touche "entrée" ---------------
+        private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion
         {
             if (e.Key == Key.Return)
             {

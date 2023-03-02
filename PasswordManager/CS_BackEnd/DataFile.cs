@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
-using System.Windows.Shapes;
-using System.Windows.Controls;
-using System.Xml.Linq;
 
 namespace PasswordManager
 {
     public partial class MainWindow : Window
     {
+        public string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public void LoadMainPage(string pwd) //Charge la page principale
         {
             StartAutoLockTimer();
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
             DatafileEncryption.SetPwd(pwd);
             if (File.Exists(DatafilePath))
@@ -25,9 +20,9 @@ namespace PasswordManager
                 DatafileEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
             }
             DatafileEncryption.DecryptFile(); //Déchiffre la base de données
-            DatafileDisplay(this, new RoutedEventArgs()); //Affiche la liste des sites web dans la data grid
+            DatagridDisplay(); //Affiche la liste des sites web dans la data grid
             DeleteDatafile(); //Supprime la base de données non-chiffrée
-            Page_principale(this, new RoutedEventArgs());
+            Visibility_principale();
         }
         public void AddPwd(string nom, string identifiant, string url, string motDePasse)
         {
@@ -37,7 +32,6 @@ namespace PasswordManager
             string note = ""; // Note vide par défaut
 
             // Définir le chemin d'accès complet pour le fichier de base de données
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string datafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
             string datafileEncPath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
 
@@ -85,7 +79,7 @@ namespace PasswordManager
             Add_MDP.Text = "";
 
             DatafileEncryption.EncryptFile(); //Chiffre la base de donnée
-            DatafileDisplay(this, new RoutedEventArgs()); //Actualise la liste des sites web dans la data grid
+            DatagridDisplay(); //Actualise la liste des sites web dans la data grid
             DeleteDatafile(); //Supprime la base de donnée non chiffrée
         }
 
@@ -94,21 +88,21 @@ namespace PasswordManager
 
         public void DeleteDatafile()
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv");
+            string path = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
             if (File.Exists(path)) {
                 File.Delete(path); //Supprime la base de donnée non chiffrée
             } 
         }
         public void DeleteDatafileEnc()
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv.enc");
+            string path = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
             if (File.Exists(path)) {
                 File.Delete(path); //Supprime la base de donnée chiffrée
             }
         }
         public void DeleteHash()
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "hash.gv");
+            string path = System.IO.Path.Combine(appDataFolder, "GuardianVault", "hash.gv");
             if (File.Exists(path)) {
                 File.Delete(path); //Supprime le hash
             }
@@ -129,7 +123,7 @@ namespace PasswordManager
                 RemoveWebsiteItem(selectedItem);
                 DatafileEncryption.EncryptFile();
 
-                DatafileDisplay(this, new RoutedEventArgs());
+                DatagridDisplay();
                 DeleteDatafile();
             }
             else
@@ -154,6 +148,12 @@ namespace PasswordManager
             }
 
             File.WriteAllLines(datafileFilePath, datafileLines);
+        }
+        public void DatagridDisplay()
+        {
+            Update_DataGrid_Items(); //Ajout de la liste des site web dans la data grid
+            DataGridWebsiteList.SelectedIndex = 0;
+            Update_Details_WebSiteItem(0);
         }
     }
 }

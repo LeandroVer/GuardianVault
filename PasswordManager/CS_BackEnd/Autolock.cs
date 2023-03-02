@@ -49,7 +49,7 @@ namespace PasswordManager
         {
             // Verrouiller l'application en utilisant la fonction de déconnexion
             if (!isLocked) {
-                Click_deconnexion(this, new RoutedEventArgs());
+                Visibility_connexion();
                 StopAutoLockTimer();
                 MessageBox.Show("Vous avez été déconnecté pour cause d'inactivité");
                 isLocked = true;

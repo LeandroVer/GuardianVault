@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
 using System.Security.Cryptography;
@@ -13,17 +10,15 @@ namespace PasswordManager
     {
         private static readonly byte[] _salt = Encoding.ASCII.GetBytes("o6806642kbM7c5");
         private static readonly string _ivFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "iv.gv");
+        private static readonly string _datafilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv");
+        private static readonly string _datafileEncPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GuardianVault", "datafile.gv.enc");
         private static string _pwd = "";
         public static void EncryptFile()
         {
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
-            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
-
-            string plainText = File.ReadAllText(inputPath);
+            string plainText = File.ReadAllText(_datafilePath);
             if (string.IsNullOrEmpty(plainText))
             {
-                File.Create(outputPath).Close();
+                File.Create(_datafileEncPath).Close();
                 using (var aes = Aes.Create())
                 {
                     aes.GenerateIV(); // Générer un IV aléatoire
@@ -60,23 +55,19 @@ namespace PasswordManager
             }
             //Ecrit la base de donnée chiffrée dans un fichier
             string res = Convert.ToBase64String(encrypted);
-            File.WriteAllText(outputPath, res);
+            File.WriteAllText(_datafileEncPath, res);
         }
 
         public static void DecryptFile()
         {
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string inputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
-            string outputPath = Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
-
             //Créer un fichier en sortie vide si le fichier d'entrée n'existe pas
-            if (!File.Exists(inputPath))
+            if (!File.Exists(_datafileEncPath))
             {
-                File.Create(outputPath).Close();
+                File.Create(_datafilePath).Close();
                 return;
             }
 
-            string cipherText = File.ReadAllText(inputPath);
+            string cipherText = File.ReadAllText(_datafileEncPath);
             if (string.IsNullOrEmpty(_pwd))
             {
                 MessageBox.Show("Decrypt - Erreur MDP");
@@ -101,11 +92,7 @@ namespace PasswordManager
                 }
             }
             //Ecrit la base de donnée déchiffrée dans un fichier
-            if (!File.Exists(outputPath))
-            {
-                File.Create(outputPath).Close();
-            }
-            File.WriteAllText(outputPath, plaintext);
+            File.WriteAllText(_datafilePath, plaintext);
         }
         public static void SetPwd(string password_entered)
         {
