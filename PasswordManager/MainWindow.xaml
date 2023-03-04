@@ -108,7 +108,11 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Image Source="{Binding url_logo}" HorizontalAlignment="Left" Margin="8,8,0,8"/>
+                                                <Image Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,8,0,8" Source="{Binding url_logo}">
+                                                    <Image.Clip>
+                                                        <EllipseGeometry RadiusX="20" RadiusY="20" Center="20,20"/>
+                                                    </Image.Clip>
+                                                </Image>
                                                 <Label Content="{Binding nom}" Margin="60,4,0,0" Style="{StaticResource TextStyleNormal}"/>
                                                 <Label Content="{Binding email}" Margin="60,25,0,0" Style="{StaticResource TextStyleInformation}"/>
                                             </Grid>
@@ -144,8 +148,12 @@
                                     <ColumnDefinition Width="81*"/>
                                     <!-- Nom -->
                                 </Grid.ColumnDefinitions>
-
-                                <Image Name="LogoWebSiteItem" Grid.Column="0" Source="/Assets/img_temp.png" />
+                                
+                                <Image Name="LogoWebSiteItem" Grid.Column="0" Source="/Assets/img_temp.png" Height="60" Width="60">
+                                    <Image.Clip>
+                                        <EllipseGeometry RadiusX="30" RadiusY="30" Center="30,30"/>
+                                    </Image.Clip>
+                                </Image>
                                 <Label Name="NomWebSiteItem" Grid.Column="1" Content="Adobe" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextStyleGrandTitre}"/>
                             </Grid>
 

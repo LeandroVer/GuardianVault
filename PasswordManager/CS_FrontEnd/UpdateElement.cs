@@ -76,6 +76,7 @@ namespace PasswordManager
             else //Lien URL
             {
                 bitmap = new BitmapImage(new Uri(link_icon, UriKind.Absolute));
+
             }
             LogoWebSiteItem.Source = bitmap;
         }
