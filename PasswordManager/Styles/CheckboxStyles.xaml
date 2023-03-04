@@ -21,6 +21,7 @@
     
     
     <Style TargetType="{x:Type CheckBox}" x:Key="CheckboxStyleSlider"> <!-- Styles des cases type "slider" -->
+    <Style TargetType="{x:Type CheckBox}" x:Key="CheckboxStyleSlider"> <!-- Style des cases type "slider" -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
