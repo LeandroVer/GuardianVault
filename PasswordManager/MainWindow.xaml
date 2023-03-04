@@ -108,12 +108,10 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Image Source="{Binding logo}" HorizontalAlignment="Left" Margin="8,8,0,8"/>
+                                                <Image Source="{Binding url_logo}" HorizontalAlignment="Left" Margin="8,8,0,8"/>
                                                 <Label Content="{Binding nom}" Margin="60,4,0,0" Style="{StaticResource TextStyleNormal}"/>
                                                 <Label Content="{Binding email}" Margin="60,25,0,0" Style="{StaticResource TextStyleInformation}"/>
                                             </Grid>
-                                            
-                                            
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

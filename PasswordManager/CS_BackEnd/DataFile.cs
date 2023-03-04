@@ -16,7 +16,7 @@ namespace PasswordManager
             DatafileEncryption.SetPwd(pwd);
             if (File.Exists(DatafilePath))
             {
-                MessageBox.Show("Changement du mot de passe maître effectué");
+                MessageBox.Show("Mot de passe maître valide");
                 DatafileEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
             }
             DatafileEncryption.DecryptFile(); //Déchiffre la base de données
@@ -24,7 +24,7 @@ namespace PasswordManager
             DeleteDatafile(); //Supprime la base de données non-chiffrée
             Visibility_principale();
         }
-        public void AddPwd(string nom, string identifiant, string url, string motDePasse)
+        public void AddPwd(string logo, string nom, string url, string identifiant, string motDePasse)
         {
             
             DeleteFilteredList();
@@ -48,18 +48,18 @@ namespace PasswordManager
                     while ((line = reader.ReadLine()!) != null)
                     {
                         string[] parts = line.Split('|');
-                        WebsiteItem website = new WebsiteItem("/Assets/img_temp.png",parts[0], parts[1], parts[2], parts[3], parts[4]);
+                        WebsiteItem website = new WebsiteItem(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
                         websites.Add(website);
                     }
                 }
-                websites.Add(new WebsiteItem("", nom, url, identifiant, motDePasse, note));
+                websites.Add(new WebsiteItem(logo, nom, url, identifiant, motDePasse, note));
 
                 // Écrire la liste mise à jour dans le fichier de base de données
                 using (StreamWriter writer = new StreamWriter(datafilePath))
                 {
                     foreach (WebsiteItem website in websites)
                     {
-                        writer.WriteLine($"{website.nom}|{website.email}|{website.url}|{website.password}|{website.note}");
+                        writer.WriteLine($"{website.url_logo}|{website.nom}|{website.url}|{website.email}|{website.password}|{website.note}");
                     }
                 }
             }
@@ -68,7 +68,7 @@ namespace PasswordManager
                 // Si le fichier n'existe pas, créer un nouveau fichier et ajouter la nouvelle entrée
                 using (StreamWriter writer = new StreamWriter(datafilePath))
                 {
-                    writer.WriteLine($"{nom}|{identifiant}|{url}|{motDePasse}|{note}");
+                    writer.WriteLine($"{logo}|{nom}|{url}|{identifiant}|{motDePasse}|{note}");
                 }
             }
 

@@ -23,6 +23,7 @@ namespace PasswordManager
             GridSecondaire.Visibility = Visibility.Visible;
             GridParametres.Visibility = Visibility.Hidden;
             CheckboxParametres.IsChecked = false;
+            DatafileEncryption.DecryptFile();
         }
 
         public void Visibility_parametres() //Navigation vers la page contenant la liste des mots de passe à gauche et les paramètres à droite

@@ -47,7 +47,16 @@ namespace PasswordManager
 
         private void Click_AddPwd(object sender, RoutedEventArgs e)//Event lors de l'ajout d'un mot de passe
         {
-            AddPwd(Add_NomSite.Text, Add_ID.Text, Add_URL.Text, Add_MDP.Text);
+            string url_img = Grab_icon(Add_URL.Text);
+            if (url_img == "NONE") //Si il y a un problème avec le lien du favicon
+            {
+                AddPwd("/Assets/icon_placeholder.png", Add_NomSite.Text, Add_URL.Text, Add_ID.Text, Add_MDP.Text); //Associe le lien du placeholder
+            }
+            else
+            {
+                AddPwd(url_img, Add_NomSite.Text, Add_URL.Text, Add_ID.Text, Add_MDP.Text);
+            }
+      
         }
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
