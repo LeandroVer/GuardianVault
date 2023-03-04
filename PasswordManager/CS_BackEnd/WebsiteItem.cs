@@ -35,5 +35,10 @@ namespace PasswordManager
             password = pass;
             note = text;
         }
+        public string ConvertWebsiteItemToString(WebsiteItem websiteItem)
+        {
+            string websiteInfo = $"{websiteItem.nom}|{websiteItem.email}|{websiteItem.url}|{websiteItem.password}|{websiteItem.note}";
+            return websiteInfo;
+        }
     }
 }
