@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
+using System.Collections.Generic;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 //Important !!
 using Newtonsoft.Json;
 using RestSharp;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace PasswordManager
 {
