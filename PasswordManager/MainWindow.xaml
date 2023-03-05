@@ -128,30 +128,20 @@
                         </DataGrid>
 
 
-                        <Grid Name="Details_Column" Grid.Column="2" Visibility="Visible">
-                            <!-- Détails -->
+                        <Grid Name="Details_Column" Grid.Column="2" Visibility="Visible"> <!-- Détails -->
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="17*"/>
-                                <!-- Logo & Nom -->
-                                <RowDefinition Height="7*"/>
-                                <!-- Sous-titre -->
-                                <RowDefinition Height="26*"/>
-                                <!-- Infos -->
-                                <RowDefinition Height="11*"/>
-                                <!-- Bouton Copier -->
-                                <RowDefinition Height="11*"/>
-                                <!-- Bouton Modifier -->
-                                <RowDefinition Height="28*"/>
-                                <!-- Notes -->
+                                <RowDefinition Height="17*"/> <!-- Logo & Nom -->
+                                <RowDefinition Height="7*"/> <!-- Sous-titre -->
+                                <RowDefinition Height="26*"/> <!-- Infos -->
+                                <RowDefinition Height="28*"/> <!-- Notes -->
+                                <RowDefinition Height="11*"/> <!-- Bouton Copier -->
+                                <RowDefinition Height="11*"/> <!-- Bouton Modifier -->         
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0">
-                                <!-- Logo & Nom -->
+                            <Grid Grid.Row="0"> <!-- Logo & Nom -->
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="19*"/>
-                                    <!-- Logo -->
-                                    <ColumnDefinition Width="81*"/>
-                                    <!-- Nom -->
+                                    <ColumnDefinition Width="19*"/> <!-- Logo -->
+                                    <ColumnDefinition Width="81*"/> <!-- Nom -->
                                 </Grid.ColumnDefinitions>
                                 
                                 <Image Name="LogoWebSiteItem" Grid.Column="0" Source="/Assets/img_temp.png" Height="60" Width="60">
@@ -162,43 +152,37 @@
                                 <Label Name="NomWebSiteItem" Grid.Column="1" Content="Adobe" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextStyleGrandTitre}"/>
                             </Grid>
 
-                            <StackPanel Grid.Row="1">
-                                <!-- Sous-titre -->
+                            <StackPanel Grid.Row="1"> <!-- Sous-titre -->
                                 <Label Content="Détails et notes" Style="{StaticResource TextStyleSousTitre}"/>
                                 <Separator Height="2" Background="#DADADA" Width="300" HorizontalAlignment="Left"/>
                             </StackPanel>
 
-                            <Grid Grid.Row="2">
-                                <!-- Infos -->
+                            <Grid Grid.Row="2"> <!-- Infos -->
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32*"/>
-                                    <!-- Noms infos -->
-                                    <ColumnDefinition Width="68*"/>
-                                    <!-- Champs infos -->
+                                    <ColumnDefinition Width="32*"/> <!-- Noms infos -->
+                                    <ColumnDefinition Width="68*"/> <!-- Champs infos -->
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0">
-                                    <!-- Noms attributs -->
+                                <StackPanel Grid.Column="0"> <!-- Noms attributs -->
                                     <Label Content="Identifiant" VerticalAlignment="Center" Margin="0,8,0,0" Style="{StaticResource TextStyleNormal}"/>
                                     <Label Content="URL" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
                                     <Label Content="Mot de passe" VerticalAlignment="Center" Margin="0,15,0,0" Style="{StaticResource TextStyleNormal}"/>
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="1">
-                                    <!-- Champs attributs -->
+                                <StackPanel Grid.Column="1"> <!-- Champs attributs -->
                                     <Label Name="EmailWebSiteItem" Content="adobe.com" VerticalAlignment="Center" Margin="0,9,0,0" Style="{StaticResource TextStyleInformation}"/>
                                     <Label Name="URLWebSiteItem" Content="email@email.com" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
                                     <Label Name="PassordWebSiteItem" Content="gkhl3KLrf" VerticalAlignment="Center" Margin="0,18,0,0" Style="{StaticResource TextStyleInformation}"/>
                                 </StackPanel>
-
                             </Grid>
-
-                            <Button Grid.Row="4" Content="Supprimer"   Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}" Click="Click_Supprimer"/>
-                            <Button Grid.Row="3" Content="Modifier" Margin="5,7,0,7" Width="300" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}"/>
-
-                            <Label Grid.Row="5" Content="Notes" Margin="4,5,0,0" Style="{StaticResource TextStyleSousTitre}"/>
-                            <TextBox Grid.Row="5" Name="NoteWebSiteItem" Width="305" HorizontalAlignment="Left" Margin="4,44,0,0" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Style="{StaticResource TextBoxStyleNotes}"/>
-
+                            
+                            <Label Grid.Row="3" Content="Notes" Margin="4,5,0,0" Style="{StaticResource TextStyleSousTitre}"/>                            
+                            <TextBox Grid.Row="3" Name="NoteWebSiteItem" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Style="{StaticResource TextBoxStyleNotes}"/>
+                            
+                            <Button Grid.Row="4" Content="Modifier" Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Row="5" Content="Supprimer"   Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}" Click="Click_Supprimer"/>
+                            
+                            
                         </Grid>
                     </Grid>
                 </Grid>
