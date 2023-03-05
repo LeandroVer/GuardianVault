@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace PasswordManager
 {
@@ -47,7 +49,28 @@ namespace PasswordManager
 
         private void Click_AddPwd(object sender, RoutedEventArgs e)//Event lors de l'ajout d'un mot de passe
         {
-            AddPwd(Add_NomSite.Text, Add_ID.Text, Add_URL.Text, Add_MDP.Text);
+            if (Add_NomSite.Text == "" | Add_ID.Text == "" | Add_URL.Text == "" | Add_MDP.Text == "")
+            {
+                MessageBox.Show("Veuillez remplir tous les champs");
+            }
+            else
+            {
+                // Transformer par exemple https://www.google.com/search en www.google.com
+                Uri uri = new UriBuilder(Add_URL.Text).Uri;
+                string baseUrl = uri.GetLeftPart(UriPartial.Authority);
+                baseUrl = baseUrl.Replace("http://", "").Replace("https://", "");
+
+                // Récupération de l'url de l'icon
+                string url_img = Grab_icon(baseUrl);
+                if (url_img == "NONE") //Si il y a un problème avec le lien du favicon
+                {
+                    AddPwd("/Assets/icon_placeholder.png", Add_NomSite.Text, baseUrl, Add_ID.Text, Add_MDP.Text); //Associe le lien du placeholder
+                }
+                else
+                {
+                    AddPwd(url_img, Add_NomSite.Text, baseUrl, Add_ID.Text, Add_MDP.Text);
+                }
+            }      
         }
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
@@ -95,6 +118,12 @@ namespace PasswordManager
         {
             Importer_coffre();
         }
+
+        private void Click_copy_mdp(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(PassordWebSiteItem.Content);
+        }
+
         //------------- Detection touche "entrée" ---------------
         private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion
         {

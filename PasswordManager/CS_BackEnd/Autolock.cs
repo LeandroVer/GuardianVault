@@ -90,7 +90,7 @@ namespace PasswordManager
 
             return autoLockDelaySeconds;
         }
-        private void DDL_Autolock_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DDL_Autolock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // Vérifier que autoLockTimer n'est pas null
             if (autoLockTimer != null)
@@ -102,7 +102,6 @@ namespace PasswordManager
             // Redémarrer le DispatcherTimer avec la nouvelle durée de timer
             StartAutoLockTimer();
         }
-
 
     }
 }
