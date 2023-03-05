@@ -121,10 +121,6 @@ namespace PasswordManager
 
         private void Click_copy_mdp(object sender, EventArgs e)
         {
-            //Clipboard.SetText("test"); //PassordWebSiteItem.Content.ToString()s
-            /*var data = new DataObject();
-            data.SetText("test");
-            Clipboard.SetDataObject(data);*/
             Clipboard.SetDataObject(PassordWebSiteItem.Content);
         }
 
