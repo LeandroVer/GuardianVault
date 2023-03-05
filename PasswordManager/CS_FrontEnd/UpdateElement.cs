@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls; //Ne pas supprimer
+
 
 namespace PasswordManager
 {
@@ -20,6 +23,8 @@ namespace PasswordManager
 
         public void Update_Details_WebSiteItem(int indice)
         {
+            string link_icon="!";
+
             if (filteredList != null && indice >= 0 && indice < filteredList.Count)
             {
                 //Si il y a une recherche est en cours
@@ -29,6 +34,8 @@ namespace PasswordManager
                 PassordWebSiteItem.Content = filteredList.ElementAt(indice).password;
                 NoteWebSiteItem.Text = filteredList.ElementAt(indice).note;
                 Details_Column.Visibility = Visibility.Visible;
+
+                link_icon = filteredList.ElementAt(indice).url_logo;
             }
             else
             {
@@ -42,6 +49,8 @@ namespace PasswordManager
                     PassordWebSiteItem.Content = "";
                     NoteWebSiteItem.Text = "";
                     Details_Column.Visibility = Visibility.Hidden;
+
+                    link_icon = "/Assets/icon_placeholder.png";
                 }
                 else
                 {
@@ -52,8 +61,24 @@ namespace PasswordManager
                     PassordWebSiteItem.Content = WebsiteList[indice].password;
                     NoteWebSiteItem.Text = WebsiteList[indice].note;
                     Details_Column.Visibility = Visibility.Visible;
+
+                    link_icon = WebsiteList[indice].url_logo; 
                 }
             }
+            
+            // Affichage de l'icon du site web
+            var image = new Image();
+            BitmapImage bitmap;
+            if (link_icon == "/Assets/icon_placeholder.png") //Pas un  lien URL juste un lien relatif
+            {
+                bitmap = new BitmapImage(new Uri(link_icon, UriKind.Relative));
+            }
+            else //Lien URL
+            {
+                bitmap = new BitmapImage(new Uri(link_icon, UriKind.Absolute));
+
+            }
+            LogoWebSiteItem.Source = bitmap;
         }
 
 

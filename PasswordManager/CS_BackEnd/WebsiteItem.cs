@@ -10,7 +10,7 @@ namespace PasswordManager
 {
     public class WebsiteItem //Classe représentant tous les détails d'un site web ajouté par l'utilisateur
     {
-        public string logo { get; set; }
+        public string url_logo { get; set; }
         public string nom { get; set; }
         public string url { get; set; }
         public string email { get; set; }
@@ -19,7 +19,7 @@ namespace PasswordManager
 
         public WebsiteItem()
         {
-            logo = "";
+            url_logo = "";
             nom = "";
             url = "";
             email = "";
@@ -28,7 +28,7 @@ namespace PasswordManager
         }
         public WebsiteItem(string path, string name, string link, string mail, string pass, string text)
         {
-            logo = path;
+            url_logo = path;
             nom = name;
             url = link;
             email = mail;
@@ -37,7 +37,7 @@ namespace PasswordManager
         }
         public string ConvertWebsiteItemToString(WebsiteItem websiteItem)
         {
-            string websiteInfo = $"{websiteItem.nom}|{websiteItem.email}|{websiteItem.url}|{websiteItem.password}|{websiteItem.note}";
+            string websiteInfo = $"{websiteItem.url_logo}|{websiteItem.nom}|{websiteItem.url}|{websiteItem.email}|{websiteItem.password}|{websiteItem.note}";
             return websiteInfo;
         }
     }
