@@ -23,22 +23,8 @@ namespace PasswordManager
             }
             if ((url_brute != null) & (url_brute.EndsWith(".com") | url_brute.EndsWith(".fr") | url_brute.EndsWith(".org") | url_brute.EndsWith(".co") | url_brute.EndsWith(".net") | url_brute.EndsWith(".io") | url_brute.EndsWith(".eu") | url_brute.EndsWith(".info") | url_brute.EndsWith(".site") | url_brute.EndsWith(".tv")))
             {
-                if (url_brute.StartsWith("http"))
-                {
-                    if (url_brute.StartsWith("https"))
-                    {
-                        icon_url = "https://favicongrabber.com/api/grab/" + url_brute[8..]; //Enlève https://
-                    }
-                    else
-                    {
-                        icon_url = "https://favicongrabber.com/api/grab/" + url_brute[7..]; //Enlève http://
-                    }
-                }
-                else
-                {
-                    icon_url = "https://favicongrabber.com/api/grab/" + url_brute;
-                }
-
+                icon_url = "https://favicongrabber.com/api/grab/" + url_brute;
+                
                 var client = new RestClient(icon_url);
                 var request = new RestRequest();
                 var response = client.Execute(request);

@@ -115,6 +115,11 @@
                                                 </Image>
                                                 <Label Content="{Binding nom}" Margin="60,4,0,0" Style="{StaticResource TextStyleNormal}"/>
                                                 <Label Content="{Binding email}" Margin="60,25,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                                <Button HorizontalAlignment="Right" Width="25" Height="25"  Margin="0,0,15,0" BorderBrush="{x:Null}" Style="{StaticResource DataGridButton}" Click="Click_copy_mdp">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Assets/copy_button.png"/>
+                                                    </Button.Background>
+                                                </Button>
                                             </Grid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>

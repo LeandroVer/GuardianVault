@@ -35,6 +35,7 @@ namespace PasswordManager
             string datafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
             string datafileEncPath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv.enc");
 
+
             // Vérifier si le fichier de base de données existe déjà
             if (File.Exists(datafileEncPath))
             {

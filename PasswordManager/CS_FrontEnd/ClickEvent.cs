@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace PasswordManager
 {
@@ -47,14 +49,21 @@ namespace PasswordManager
 
         private void Click_AddPwd(object sender, RoutedEventArgs e)//Event lors de l'ajout d'un mot de passe
         {
-            string url_img = Grab_icon(Add_URL.Text);
+            // Transformer par exemple https://www.google.com/search en www.google.com
+            Uri uri = new UriBuilder(Add_URL.Text).Uri;
+            string baseUrl = uri.GetLeftPart(UriPartial.Authority);
+            baseUrl = baseUrl.Replace("http://", "").Replace("https://", "");
+            
+            // Récupération de l'url de l'icon
+            string url_img = Grab_icon(baseUrl);
+            MessageBox.Show(url_img);
             if (url_img == "NONE") //Si il y a un problème avec le lien du favicon
             {
-                AddPwd("/Assets/icon_placeholder.png", Add_NomSite.Text, Add_URL.Text, Add_ID.Text, Add_MDP.Text); //Associe le lien du placeholder
+                AddPwd("/Assets/icon_placeholder.png", Add_NomSite.Text, baseUrl, Add_ID.Text, Add_MDP.Text); //Associe le lien du placeholder
             }
             else
             {
-                AddPwd(url_img, Add_NomSite.Text, Add_URL.Text, Add_ID.Text, Add_MDP.Text);
+                AddPwd(url_img, Add_NomSite.Text, baseUrl, Add_ID.Text, Add_MDP.Text);
             }
       
         }
@@ -104,6 +113,16 @@ namespace PasswordManager
         {
             Importer_coffre();
         }
+
+        private void Click_copy_mdp(object sender, EventArgs e)
+        {
+            //Clipboard.SetText("test"); //PassordWebSiteItem.Content.ToString()s
+            /*var data = new DataObject();
+            data.SetText("test");
+            Clipboard.SetDataObject(data);*/
+            Clipboard.SetDataObject(PassordWebSiteItem.Content);
+        }
+
         //------------- Detection touche "entrée" ---------------
         private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion
         {
