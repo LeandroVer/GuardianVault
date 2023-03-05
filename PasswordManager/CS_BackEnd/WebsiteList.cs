@@ -27,12 +27,12 @@ namespace PasswordManager
                 string[] fields = lines[i].Split('|');
                 WebsiteList.Add(new WebsiteItem()
                 {
-                    logo = "/Assets/img_temp.png",
-                    nom = fields[0],
-                    email = fields[1],
+                    url_logo = fields[0],
+                    nom = fields[1],
                     url = fields[2],
-                    password = fields[3],
-                    note = fields[4]
+                    email = fields[3],               
+                    password = fields[4],
+                    note = fields[5]
                 });
             }
 

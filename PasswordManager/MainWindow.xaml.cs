@@ -10,7 +10,6 @@ namespace PasswordManager
             MinHeight = MinWidth / (1920 / 985.0);
             SizeChanged += MainWindow_SizeChanged;
             HashFileExists();
-            DDL_Autolock.SelectionChanged += DDL_Autolock_SelectionChanged;
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) //Conserver le bon ratio de l'écran
@@ -24,7 +23,5 @@ namespace PasswordManager
                 Width = Height * (1920 / 985.0);
             }
         }
-        //Les autres parties du code C# sont dans des fichiers séparés (CS_FrontEnd et CS_BackEnd)
-        //Les fichiers qui doivent intéragir avec l'interface graphique (ex : ButtonClick) sont dans des fichiers séparés mais dans appartiennent à cette même classe (partial MainWindow)
     }
 }
