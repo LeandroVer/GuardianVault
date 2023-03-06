@@ -72,6 +72,10 @@ namespace PasswordManager
                 }
             }      
         }
+        private void Click_copy_mdp(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(PassordWebSiteItem.Content);
+        }
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
             Supprimer();
@@ -119,10 +123,7 @@ namespace PasswordManager
             Importer_coffre();
         }
 
-        private void Click_copy_mdp(object sender, EventArgs e)
-        {
-            Clipboard.SetDataObject(PassordWebSiteItem.Content);
-        }
+
 
         //------------- Detection touche "entrée" ---------------
         private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion

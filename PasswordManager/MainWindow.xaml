@@ -134,7 +134,7 @@
                                 <RowDefinition Height="7*"/> <!-- Sous-titre -->
                                 <RowDefinition Height="26*"/> <!-- Infos -->
                                 <RowDefinition Height="28*"/> <!-- Notes -->
-                                <RowDefinition Height="11*"/> <!-- Bouton Copier -->
+                                <RowDefinition Height="11*"/> <!-- Bouton Supprimer -->
                                 <RowDefinition Height="11*"/> <!-- Bouton Modifier -->         
                             </Grid.RowDefinitions>
 
