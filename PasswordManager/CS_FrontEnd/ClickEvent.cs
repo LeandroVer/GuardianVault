@@ -84,6 +84,10 @@ namespace PasswordManager
         {
             Generate(int.Parse(TextBoxLongueur.Text), Checkbox_Minuscule.IsChecked == true, Checkbox_Majuscule.IsChecked == true, Checkbox_Nombre.IsChecked == true, Checkbox_Symbole.IsChecked == true);
         }
+        private void Click_Effacer(object sender, RoutedEventArgs e)
+        {
+            Effacer();
+        }
         //------------- Fenetre paramètres ---------------
         private void Click_parametres(object sender, RoutedEventArgs e) //Event du bouton Paramètres (écrou)
         {

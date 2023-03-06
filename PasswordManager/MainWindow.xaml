@@ -298,11 +298,11 @@
 
                         <Grid Grid.Row="6"> <!-- Boutons -->
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/> <!-- Bouton Regénérer -->
+                                <ColumnDefinition Width="50*"/> <!-- Bouton Effecer -->
                                 <ColumnDefinition Width="50*"/> <!-- Bouton Sauvegarder -->
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" Content="Regénérer" Margin="7,10,15,10" Style="{StaticResource ButtonStyleNormal}"  Click="Click_Generate"/>
+                            <Button Grid.Column="0" Content="Effecer" Margin="7,10,15,10" Style="{StaticResource ButtonStyleNormal}"  Click="Click_Effacer"/>
                             <Button Grid.Column="1" Content="Sauvegarder" Margin="15,10,0,7" Style="{StaticResource ButtonStyleBlue}" Click="Click_AddPwd"/>
 
 
