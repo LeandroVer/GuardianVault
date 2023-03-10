@@ -84,9 +84,6 @@ namespace PasswordManager
             DeleteDatafile(); //Supprime la base de donnée non chiffrée
         }
 
-
-
-
         public void DeleteDatafile()
         {
             string path = System.IO.Path.Combine(appDataFolder, "GuardianVault", "datafile.gv");
