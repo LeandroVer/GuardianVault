@@ -38,7 +38,6 @@
     <Style TargetType="TextBox" x:Key="TextBoxStyleNotes"> <!-- Style du champs d'écriture des notes -->
         <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
         <Setter Property="FontSize" Value="11"/>
-        <Setter Property="Foreground" Value="#292D32"/>
         <Setter Property="Padding" Value="4,0,4,0"/>
         <Setter Property="BorderBrush" Value="#DADADA"/>
         <Setter Property="BorderThickness" Value="1.1"/>
@@ -48,6 +47,7 @@
             </Style>
         </Style.Resources>
     </Style>
+    
     
 
     <Style TargetType="TextBox" x:Key="TextBoxStyleSearch"> <!-- Style de la barre de recherche -->

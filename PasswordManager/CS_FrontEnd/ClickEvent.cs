@@ -76,6 +76,13 @@ namespace PasswordManager
         {
             Clipboard.SetDataObject(PassordWebSiteItem.Content);
         }
+
+        private void Click_Modifier(object sender, RoutedEventArgs e) //Event du bouton Supprimer
+        {
+
+            NoteWebSiteItem.IsReadOnly = false;
+        }
+
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
             Supprimer();

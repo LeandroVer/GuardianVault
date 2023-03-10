@@ -177,16 +177,15 @@
                             </Grid>
                             
                             <Label Grid.Row="3" Content="Notes" Margin="4,5,0,0" Style="{StaticResource TextStyleSousTitre}"/>                            
-                            <TextBox Grid.Row="3" Name="NoteWebSiteItem" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Style="{StaticResource TextBoxStyleNotes}"/>
+                            <TextBox Grid.Row="3" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" Style="{StaticResource TextBoxStyleNotes}"/>
+                             
+                            <TextBox Grid.Row="3" Name="NoteWebSiteItem" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Foreground="#808080" IsReadOnly="True" Style="{StaticResource TextBoxStyleNotes}"/>
                             
-                            <Button Grid.Row="4" Content="Modifier" Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Row="4" Content="Modifier" Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}" Click="Click_Modifier"/>
                             <Button Grid.Row="5" Content="Supprimer"   Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}" Click="Click_Supprimer"/>
-                            
-                            
                         </Grid>
                     </Grid>
                 </Grid>
-
 
                 <Grid Grid.Column="1" x:Name="GridSecondaire" Visibility="Visible"> <!-- Colonne secondaire -->
                     <Grid.ColumnDefinitions>
