@@ -73,5 +73,12 @@ namespace PasswordManager
             return passwordBuilder.ToString();
             
         }
+        public void Effacer()
+        {
+            Add_NomSite.Text = "";
+            Add_ID.Text = "";
+            Add_URL.Text = "";
+            Add_MDP.Text = "";
+        }
     }
 }

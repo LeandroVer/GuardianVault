@@ -20,7 +20,7 @@ namespace PasswordManager
             int autoLockDelaySeconds = RecoverInactivityTime();
             if (autoLockDelaySeconds == 0)
             {
-                autoLockTimer.Stop();
+                autoLockTimer.IsEnabled = false;
                 return;
             }
 
@@ -29,20 +29,23 @@ namespace PasswordManager
             autoLockTimer.Tick += AutoLockTimer_Tick!;
 
             // Démarrer le DispatcherTimer
-            autoLockTimer.Start();
+            autoLockTimer.IsEnabled = true;
         }
 
         public void ResetAutoLockTimer()
         {
             // Arrêter et redémarrer le DispatcherTimer pour réinitialiser le compte à rebours
-            autoLockTimer.Stop();
-            autoLockTimer.Start();
+            if (autoLockTimer.IsEnabled)
+            {
+                autoLockTimer.IsEnabled = false;
+                autoLockTimer.IsEnabled = true;
+            }
         }
 
         public void StopAutoLockTimer()
         {
             // Arrêter le DispatcherTimer
-            autoLockTimer.Stop();
+            autoLockTimer.IsEnabled = false;
         }
 
         public void AutoLockTimer_Tick(object sender, EventArgs e)
@@ -90,7 +93,7 @@ namespace PasswordManager
 
             return autoLockDelaySeconds;
         }
-        private void DDL_Autolock_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void DDL_Autolock_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Vérifier que autoLockTimer n'est pas null
             if (autoLockTimer != null)
@@ -102,6 +105,7 @@ namespace PasswordManager
             // Redémarrer le DispatcherTimer avec la nouvelle durée de timer
             StartAutoLockTimer();
         }
+
 
     }
 }

@@ -72,6 +72,10 @@ namespace PasswordManager
                 }
             }      
         }
+        private void Click_copy_mdp(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(PassordWebSiteItem.Content);
+        }
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
             Supprimer();
@@ -79,6 +83,10 @@ namespace PasswordManager
         private void Click_Generate(object sender, RoutedEventArgs e)
         {
             Generate(int.Parse(TextBoxLongueur.Text), Checkbox_Minuscule.IsChecked == true, Checkbox_Majuscule.IsChecked == true, Checkbox_Nombre.IsChecked == true, Checkbox_Symbole.IsChecked == true);
+        }
+        private void Click_Effacer(object sender, RoutedEventArgs e)
+        {
+            Effacer();
         }
         //------------- Fenetre paramètres ---------------
         private void Click_parametres(object sender, RoutedEventArgs e) //Event du bouton Paramètres (écrou)
@@ -119,10 +127,7 @@ namespace PasswordManager
             Importer_coffre();
         }
 
-        private void Click_copy_mdp(object sender, EventArgs e)
-        {
-            Clipboard.SetDataObject(PassordWebSiteItem.Content);
-        }
+
 
         //------------- Detection touche "entrée" ---------------
         private void TextBoxConfirmMasterPass_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la fenêtre de 1ere connexion
