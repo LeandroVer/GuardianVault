@@ -13,7 +13,7 @@ namespace PasswordManager
         {
             if (useLowercase == false && useUppercase == false && useNumbers == false && useSymbols == false)
             {
-                MessageBox.Show("Veuillez cocher au moins une case pour générer votre mot de passe");
+                Open_pop_up("Veuillez cocher au moins une case pour générer votre mot de passe");
             }
             else
             {

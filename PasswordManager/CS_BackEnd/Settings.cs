@@ -50,7 +50,7 @@ namespace PasswordManager
                 catch (Exception ex)
                 {
                     // Afficher un message d'erreur
-                    MessageBox.Show("Une erreur s'est produite lors de l'enregistrement du fichier : " + ex.Message);
+                    Open_pop_up("Une erreur s'est produite lors de l'enregistrement du fichier : " + ex.Message);
                 }
             }
             DeleteDatafile();

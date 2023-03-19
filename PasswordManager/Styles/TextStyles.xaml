@@ -30,5 +30,11 @@
         <Setter Property="FontSize" Value="11" />
         <Setter Property="Foreground" Value="#808080" />
     </Style>
+    
+    <Style TargetType="TextBlock" x:Key="TextStyleNotes"> <!-- Style des notes -->
+        <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="#808080" />
+    </Style>
 
 </ResourceDictionary>

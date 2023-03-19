@@ -16,7 +16,7 @@ namespace PasswordManager
             DatafileEncryption.SetPwd(pwd);
             if (File.Exists(DatafilePath))
             {
-                MessageBox.Show("Mot de passe maître valide");
+                Open_pop_up("Mot de passe maître valide");
                 DatafileEncryption.EncryptFile(); //Chiffre la base de données avec le nouveau mot de passe maitre (changement de mot de passe maitre)
             }
             DatafileEncryption.DecryptFile(); //Déchiffre la base de données
@@ -126,7 +126,7 @@ namespace PasswordManager
             }
             else
             {
-                MessageBox.Show("Veuillez sélectionner un site web à supprimer.");
+                Open_pop_up("Veuillez sélectionner un site web à supprimer.");
             }
         }
 

@@ -28,7 +28,7 @@ namespace PasswordManager
             }
             if (string.IsNullOrEmpty(_pwd))
             {
-                MessageBox.Show("Encrypt - Erreur MDP");
+                MainWindow.Open_pop_up("Encrypt - Erreur MDP");
             }
 
             byte[] encrypted;
@@ -70,7 +70,7 @@ namespace PasswordManager
             string cipherText = File.ReadAllText(_datafileEncPath);
             if (string.IsNullOrEmpty(_pwd))
             {
-                MessageBox.Show("Decrypt - Erreur MDP");
+                MainWindow.Open_pop_up("Decrypt - Erreur MDP");
             }
             string plaintext = null ?? "";
             using (var aes = Aes.Create())

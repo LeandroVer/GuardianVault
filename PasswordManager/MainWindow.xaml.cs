@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Security.Cryptography;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace PasswordManager
 {
@@ -10,6 +12,9 @@ namespace PasswordManager
             MinHeight = MinWidth / (1920 / 985.0);
             SizeChanged += MainWindow_SizeChanged;
             HashFileExists();
+            
+            
+                           
         }
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e) //Conserver le bon ratio de l'écran
