@@ -44,7 +44,13 @@
         <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0,3,0,3"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="6"/>
+            </Style>
+        </Style.Resources>
     </Style>
     
 
