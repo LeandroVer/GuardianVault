@@ -25,10 +25,10 @@ namespace PasswordManager
                 if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password)){
                     LoadMainPage(TextBoxMasterPass.Password);
                 }else{
-                    MessageBox.Show("Mot de passe incorrect");
+                    Open_pop_up("Mot de passe incorrect");
                 }
             }else{
-                MessageBox.Show("Veuillez entrer un mot de passe");
+                Open_pop_up("Veuillez entrer un mot de passe");
             }
         }
 
@@ -54,7 +54,7 @@ namespace PasswordManager
         {
             if (Add_NomSite.Text == "" | Add_ID.Text == "" | Add_URL.Text == "" | Add_MDP.Text == "")
             {
-                MessageBox.Show("Veuillez remplir tous les champs");
+                Open_pop_up("Veuillez remplir tous les champs");
             }
             else
             {
@@ -184,12 +184,12 @@ namespace PasswordManager
                     }
                     else
                     {
-                        MessageBox.Show("Mot de passe incorrect");
+                        Open_pop_up("Mot de passe incorrect");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Veuillez entrer un mot de passe");
+                    Open_pop_up("Veuillez entrer un mot de passe");
                 }
             }
         }
@@ -200,6 +200,13 @@ namespace PasswordManager
             {
                 SearchBar();
             }
+        }
+
+        //------------- Ouverture d'une pop-up ---------------
+        public static void Open_pop_up(string message)
+        {
+            var popUpWindow = new PopupWindow(message);
+            popUpWindow.ShowDialog();
         }
     }
 }

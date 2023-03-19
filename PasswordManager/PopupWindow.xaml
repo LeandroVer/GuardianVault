@@ -1,0 +1,16 @@
+﻿<Window x:Class="PasswordManager.PopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordManager"
+        mc:Ignorable="d" Title="" Height="110" SizeToContent="Width" ResizeMode="NoResize" Icon="Assets/icon.png" BorderThickness="0,0,1,0" BorderBrush="White" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="75*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Name="TextBlockMessage" Content="Ici est affiché le message !" HorizontalContentAlignment="Center" VerticalAlignment="Top" Padding="0,0,0,0" Margin="20,0,20,0" Style="{StaticResource TextStyleNormal}"/>
+        <Button Grid.Row="1" Content="OK" Width="80" Height="28" Style="{StaticResource ButtonStyleBlue}" Click="Close_pop_up"/>
+    </Grid>
+</Window>

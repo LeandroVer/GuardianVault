@@ -54,7 +54,7 @@ namespace PasswordManager
             if (!isLocked) {
                 Visibility_connexion();
                 StopAutoLockTimer();
-                MessageBox.Show("Vous avez été déconnecté pour cause d'inactivité");
+                Open_pop_up("Vous avez été déconnecté pour cause d'inactivité");
                 isLocked = true;
             }
         }
