@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,10 +25,10 @@ namespace PasswordManager
                 if (PasswordVerifier.VerifyPassword(TextBoxMasterPass.Password)){
                     LoadMainPage(TextBoxMasterPass.Password);
                 }else{
-                    MessageBox.Show("Mot de passe incorrect");
+                    Open_pop_up("Mot de passe incorrect");
                 }
             }else{
-                MessageBox.Show("Veuillez entrer un mot de passe");
+                Open_pop_up("Veuillez entrer un mot de passe");
             }
         }
 
@@ -35,6 +36,7 @@ namespace PasswordManager
         private void Click_DataGridWebsiteList(object sender, SelectionChangedEventArgs e) //Event lorsqu'un des sites web est cliqué dans la liste
         {
             ResetAutoLockTimer();
+            Disable_modification();
             Update_Details_WebSiteItem(DataGridWebsiteList.SelectedIndex); //Met à jour les détails du site web cliqué au centre de l'écran
         }
         public void DatafileDisplay(object sender, RoutedEventArgs e)
@@ -44,6 +46,7 @@ namespace PasswordManager
 
         private void Click_SearchBar(object sender, RoutedEventArgs e) //Event lorsqu'on clique sur le bouton de recherche
         {
+            Disable_modification();
             SearchBar();
         }
 
@@ -51,10 +54,11 @@ namespace PasswordManager
         {
             if (Add_NomSite.Text == "" | Add_ID.Text == "" | Add_URL.Text == "" | Add_MDP.Text == "")
             {
-                MessageBox.Show("Veuillez remplir tous les champs");
+                Open_pop_up("Veuillez remplir tous les champs");
             }
             else
             {
+                Disable_modification();
                 // Transformer par exemple https://www.google.com/search en www.google.com
                 Uri uri = new UriBuilder(Add_URL.Text).Uri;
                 string baseUrl = uri.GetLeftPart(UriPartial.Authority);
@@ -72,20 +76,48 @@ namespace PasswordManager
                 }
             }      
         }
+
+        private void Click_copy_id(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(EmailWebSiteItem.Text);
+        }
+
+        private void Click_open_website(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { FileName = URLWebSiteItem.Text.ToString(), UseShellExecute = true });
+        }
+
         private void Click_copy_mdp(object sender, EventArgs e)
         {
-            Clipboard.SetDataObject(PassordWebSiteItem.Content);
+            Clipboard.SetDataObject(PassordWebSiteItem.Text);
         }
+
+        private void Click_Modifier(object sender, RoutedEventArgs e) //Event du bouton Supprimer
+        {
+            if (NoteWebSiteItem.IsReadOnly == true)
+            {
+                Enable_modification();
+            }
+            else
+            {
+                Disable_modification();
+            }
+            
+        }
+
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
+            Disable_modification();
             Supprimer();
         }
         private void Click_Generate(object sender, RoutedEventArgs e)
         {
+            Disable_modification();
             Generate(int.Parse(TextBoxLongueur.Text), Checkbox_Minuscule.IsChecked == true, Checkbox_Majuscule.IsChecked == true, Checkbox_Nombre.IsChecked == true, Checkbox_Symbole.IsChecked == true);
         }
         private void Click_Effacer(object sender, RoutedEventArgs e)
         {
+            Disable_modification();
             Effacer();
         }
         //------------- Fenetre paramètres ---------------
@@ -152,21 +184,29 @@ namespace PasswordManager
                     }
                     else
                     {
-                        MessageBox.Show("Mot de passe incorrect");
+                        Open_pop_up("Mot de passe incorrect");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Veuillez entrer un mot de passe");
+                    Open_pop_up("Veuillez entrer un mot de passe");
                 }
             }
         }
         private void Click_SearchBar_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la barre de recherche
         {
+            Disable_modification();
             if (e.Key == Key.Return)
             {
                 SearchBar();
             }
+        }
+
+        //------------- Ouverture d'une pop-up ---------------
+        public static void Open_pop_up(string message)
+        {
+            var popUpWindow = new PopupWindow(message);
+            popUpWindow.ShowDialog();
         }
     }
 }

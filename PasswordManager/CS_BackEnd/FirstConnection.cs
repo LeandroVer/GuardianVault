@@ -18,13 +18,13 @@ namespace PasswordManager
                 }
                 else
                 {
-                    MessageBox.Show("Le mot de passe doit contenir au moins 6 caractères, dont au moins une lettre et un chiffre");
+                    MainWindow.Open_pop_up("Entrez au moins 6 caractères, dont au moins une lettre et un chiffre");
                 }
 
             }
             else
             {
-                MessageBox.Show("Le mot de passe et confirmation doivent être identique");
+                MainWindow.Open_pop_up("Le mot de passe et confirmation doivent être identique");
             }
             return false;
         }

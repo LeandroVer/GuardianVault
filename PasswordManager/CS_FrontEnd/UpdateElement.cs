@@ -29,9 +29,9 @@ namespace PasswordManager
             {
                 //Si il y a une recherche est en cours
                 NomWebSiteItem.Content = filteredList.ElementAt(indice).nom;
-                URLWebSiteItem.Content = filteredList.ElementAt(indice).url;
-                EmailWebSiteItem.Content = filteredList.ElementAt(indice).email;
-                PassordWebSiteItem.Content = filteredList.ElementAt(indice).password;
+                URLWebSiteItem.Text = filteredList.ElementAt(indice).url;
+                EmailWebSiteItem.Text = filteredList.ElementAt(indice).email;
+                PassordWebSiteItem.Text = filteredList.ElementAt(indice).password;
                 NoteWebSiteItem.Text = filteredList.ElementAt(indice).note;
                 Details_Column.Visibility = Visibility.Visible;
 
@@ -44,9 +44,9 @@ namespace PasswordManager
                 {
                     // Si la base de données est vide, on affiche des champs vides
                     NomWebSiteItem.Content = "";
-                    URLWebSiteItem.Content = "";
-                    EmailWebSiteItem.Content = "";
-                    PassordWebSiteItem.Content = "";
+                    URLWebSiteItem.Text = "";
+                    EmailWebSiteItem.Text = "";
+                    PassordWebSiteItem.Text = "";
                     NoteWebSiteItem.Text = "";
                     Details_Column.Visibility = Visibility.Hidden;
 
@@ -56,9 +56,9 @@ namespace PasswordManager
                 {
                     // Sinon, on affiche les détails des sites web correspondant à l'indice
                     NomWebSiteItem.Content = WebsiteList[indice].nom;
-                    URLWebSiteItem.Content = WebsiteList[indice].url;
-                    EmailWebSiteItem.Content = WebsiteList[indice].email;
-                    PassordWebSiteItem.Content = WebsiteList[indice].password;
+                    URLWebSiteItem.Text = WebsiteList[indice].url;
+                    EmailWebSiteItem.Text = WebsiteList[indice].email;
+                    PassordWebSiteItem.Text = WebsiteList[indice].password;
                     NoteWebSiteItem.Text = WebsiteList[indice].note;
                     Details_Column.Visibility = Visibility.Visible;
 
