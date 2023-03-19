@@ -16,6 +16,9 @@ namespace PasswordManager
             URLWebSiteItem.IsReadOnly = false;
             PassordWebSiteItem.IsReadOnly = false;
             NoteWebSiteItem.IsReadOnly = false;
+            BoutonCopierId.Visibility = Visibility.Hidden;
+            BoutonOuvrirURL.Visibility = Visibility.Hidden;
+            BoutonCopierMdp.Visibility = Visibility.Hidden;
             BoutonModifier.Content = "Sauvegarder";
         }
 
@@ -25,11 +28,16 @@ namespace PasswordManager
             URLWebSiteItem.IsReadOnly = true;
             PassordWebSiteItem.IsReadOnly = true;
             NoteWebSiteItem.IsReadOnly = true;
+            BoutonCopierId.Visibility = Visibility.Visible;
+            BoutonOuvrirURL.Visibility = Visibility.Visible;
+            BoutonCopierMdp.Visibility = Visibility.Visible;
+            Update_Details_WebSiteItem(DataGridWebsiteList.SelectedIndex);
             BoutonModifier.Content = "Modifier";
         }
 
         public void Save_modification()
         {
+            //Ici il faut mettre l'appel de la fonction qui va remplacer les nouvelles infos modifiés
             Disable_modification();
         }
     }

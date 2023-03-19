@@ -36,6 +36,7 @@ namespace PasswordManager
         private void Click_DataGridWebsiteList(object sender, SelectionChangedEventArgs e) //Event lorsqu'un des sites web est cliqué dans la liste
         {
             ResetAutoLockTimer();
+            Disable_modification();
             Update_Details_WebSiteItem(DataGridWebsiteList.SelectedIndex); //Met à jour les détails du site web cliqué au centre de l'écran
         }
         public void DatafileDisplay(object sender, RoutedEventArgs e)
@@ -45,6 +46,7 @@ namespace PasswordManager
 
         private void Click_SearchBar(object sender, RoutedEventArgs e) //Event lorsqu'on clique sur le bouton de recherche
         {
+            Disable_modification();
             SearchBar();
         }
 
@@ -56,6 +58,7 @@ namespace PasswordManager
             }
             else
             {
+                Disable_modification();
                 // Transformer par exemple https://www.google.com/search en www.google.com
                 Uri uri = new UriBuilder(Add_URL.Text).Uri;
                 string baseUrl = uri.GetLeftPart(UriPartial.Authority);
@@ -104,14 +107,17 @@ namespace PasswordManager
 
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
+            Disable_modification();
             Supprimer();
         }
         private void Click_Generate(object sender, RoutedEventArgs e)
         {
+            Disable_modification();
             Generate(int.Parse(TextBoxLongueur.Text), Checkbox_Minuscule.IsChecked == true, Checkbox_Majuscule.IsChecked == true, Checkbox_Nombre.IsChecked == true, Checkbox_Symbole.IsChecked == true);
         }
         private void Click_Effacer(object sender, RoutedEventArgs e)
         {
+            Disable_modification();
             Effacer();
         }
         //------------- Fenetre paramètres ---------------
@@ -189,6 +195,7 @@ namespace PasswordManager
         }
         private void Click_SearchBar_KeyDown(object sender, KeyEventArgs e) //Event lorsqu'on appuie sur la touche entrée dans la barre de recherche
         {
+            Disable_modification();
             if (e.Key == Key.Return)
             {
                 SearchBar();

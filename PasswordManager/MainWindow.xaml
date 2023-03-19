@@ -166,7 +166,7 @@
                                 
                                 <Label Grid.Row="0" Content="Identifiant" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
                                 <TextBox Grid.Row="0" Name="EmailWebSiteItem" Text="adobe.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
-                                <Button Grid.Row="0" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_id">
+                                <Button Grid.Row="0" Name="BoutonCopierId" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_id">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/copy_button.png"/>
                                     </Button.Background>
@@ -174,7 +174,7 @@
                                 
                                 <Label Grid.Row="1" Content="URL" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
                                 <TextBox Grid.Row="1" Name="URLWebSiteItem" Text="email@email.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
-                                <Button Grid.Row="1" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_open_website">
+                                <Button Grid.Row="1" Name="BoutonOuvrirURL" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_open_website">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/open_button.png"/>
                                     </Button.Background>
@@ -182,7 +182,7 @@
                                 
                                 <Label Grid.Row="2" Content="Mot de passe" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
                                 <TextBox Grid.Row="2" Name="PassordWebSiteItem" Text="gkhl3KLrf" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
-                                <Button Grid.Row="2" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_mdp">
+                                <Button Grid.Row="2" Name="BoutonCopierMdp" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_mdp">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/copy_button.png"/>
                                     </Button.Background>

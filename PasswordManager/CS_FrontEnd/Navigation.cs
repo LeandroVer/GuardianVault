@@ -23,13 +23,14 @@ namespace PasswordManager
             GridSecondaire.Visibility = Visibility.Visible;
             GridParametres.Visibility = Visibility.Hidden;
             CheckboxParametres.IsChecked = false;
-            NoteWebSiteItem.Text = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras sed felis eget velit aliquet sagittis.Sit amet purus gravida quis blandit turpis cursus in hac.\r\n");
+            Disable_modification();
         }
 
         public void Visibility_parametres() //Navigation vers la page contenant la liste des mots de passe à gauche et les paramètres à droite
         {
             GridSecondaire.Visibility = Visibility.Hidden;
             GridParametres.Visibility = Visibility.Visible;
+            Disable_modification();
         }
 
 
@@ -44,6 +45,7 @@ namespace PasswordManager
             ColorSeparation.Visibility = Visibility.Hidden;
             FenetreConnexion.Visibility = Visibility.Visible;
             FenetrePremiereConnexion.Visibility = Visibility.Hidden;
+            Disable_modification();
         }
         private void Page_premiere_connexion(object sender, RoutedEventArgs e) //Navigation vers la page de première connexion (mot de passe à entrer et à confirmer)
         {
@@ -55,6 +57,7 @@ namespace PasswordManager
             FenetrePrincipale.Visibility = Visibility.Hidden;
             ColorSeparation.Visibility = Visibility.Hidden;
             FenetrePremiereConnexion.Visibility = Visibility.Visible;
+            Disable_modification();
         }
         
         public void HashFileExists()
