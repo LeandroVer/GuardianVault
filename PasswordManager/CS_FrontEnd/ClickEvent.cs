@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
@@ -72,6 +73,17 @@ namespace PasswordManager
                 }
             }      
         }
+
+        private void Click_copy_id(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(EmailWebSiteItem.Content);
+        }
+
+        private void Click_open_website(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { FileName = URLWebSiteItem.Content.ToString(), UseShellExecute = true });
+        }
+
         private void Click_copy_mdp(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(PassordWebSiteItem.Content);
@@ -79,8 +91,15 @@ namespace PasswordManager
 
         private void Click_Modifier(object sender, RoutedEventArgs e) //Event du bouton Supprimer
         {
-
-            NoteWebSiteItem.IsReadOnly = false;
+            if (NoteWebSiteItem.IsReadOnly == true)
+            {
+                Enable_modification();
+            }
+            else
+            {
+                Disable_modification();
+            }
+            
         }
 
         private void Click_Supprimer(object sender, RoutedEventArgs e) //Event du bouton Supprimer
