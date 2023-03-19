@@ -12,12 +12,18 @@ namespace PasswordManager
     {
         public void Enable_modification()
         {
+            EmailWebSiteItem.IsReadOnly = false;
+            URLWebSiteItem.IsReadOnly = false;
+            PassordWebSiteItem.IsReadOnly = false;
             NoteWebSiteItem.IsReadOnly = false;
             BoutonModifier.Content = "Sauvegarder";
         }
 
         public void Disable_modification()
         {
+            EmailWebSiteItem.IsReadOnly = true;
+            URLWebSiteItem.IsReadOnly = true;
+            PassordWebSiteItem.IsReadOnly = true;
             NoteWebSiteItem.IsReadOnly = true;
             BoutonModifier.Content = "Modifier";
         }

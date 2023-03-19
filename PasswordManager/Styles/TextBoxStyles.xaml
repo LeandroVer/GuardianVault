@@ -27,6 +27,18 @@
         </Setter>
     </Style>
     
+    <Style TargetType="TextBox" x:Key="TextBoxStyleInformation"> <!-- Style des champs d'écriture d'informations -->
+        <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Foreground" Value="#808080"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
 
     <Style TargetType="TextBox" x:Key="TextBoxStyleSmall"> <!-- Style des petits champs d'écriture -->
         <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
@@ -41,12 +53,18 @@
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="Padding" Value="4,0,4,0"/>
         <Setter Property="BorderBrush" Value="#DADADA"/>
+        <Setter Property="Foreground" Value="#333333"/>
         <Setter Property="BorderThickness" Value="1.1"/>
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="3"/>
             </Style>
         </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Foreground" Value="#808080"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
     

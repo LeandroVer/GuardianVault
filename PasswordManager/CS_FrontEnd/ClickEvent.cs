@@ -76,17 +76,17 @@ namespace PasswordManager
 
         private void Click_copy_id(object sender, EventArgs e)
         {
-            Clipboard.SetDataObject(EmailWebSiteItem.Content);
+            Clipboard.SetDataObject(EmailWebSiteItem.Text);
         }
 
         private void Click_open_website(object sender, EventArgs e)
         {
-            Process.Start(new ProcessStartInfo() { FileName = URLWebSiteItem.Content.ToString(), UseShellExecute = true });
+            Process.Start(new ProcessStartInfo() { FileName = URLWebSiteItem.Text.ToString(), UseShellExecute = true });
         }
 
         private void Click_copy_mdp(object sender, EventArgs e)
         {
-            Clipboard.SetDataObject(PassordWebSiteItem.Content);
+            Clipboard.SetDataObject(PassordWebSiteItem.Text);
         }
 
         private void Click_Modifier(object sender, RoutedEventArgs e) //Event du bouton Supprimer

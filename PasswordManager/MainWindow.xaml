@@ -165,7 +165,7 @@
                                 </Grid.RowDefinitions>
                                 
                                 <Label Grid.Row="0" Content="Identifiant" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
-                                <Label Grid.Row="0" Name="EmailWebSiteItem" Content="adobe.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                <TextBox Grid.Row="0" Name="EmailWebSiteItem" Text="adobe.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
                                 <Button Grid.Row="0" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_id">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/copy_button.png"/>
@@ -173,7 +173,7 @@
                                 </Button>
                                 
                                 <Label Grid.Row="1" Content="URL" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
-                                <Label Grid.Row="1" Name="URLWebSiteItem" Content="email@email.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                <TextBox Grid.Row="1" Name="URLWebSiteItem" Text="email@email.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
                                 <Button Grid.Row="1" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_open_website">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/open_button.png"/>
@@ -181,7 +181,7 @@
                                 </Button>
                                 
                                 <Label Grid.Row="2" Content="Mot de passe" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
-                                <Label Grid.Row="2" Name="PassordWebSiteItem" Content="gkhl3KLrf" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" Style="{StaticResource TextStyleInformation}"/>
+                                <TextBox Grid.Row="2" Name="PassordWebSiteItem" Text="gkhl3KLrf" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
                                 <Button Grid.Row="2" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_mdp">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/copy_button.png"/>
@@ -192,7 +192,7 @@
                             <Label Grid.Row="3" Content="Notes" Margin="4,5,0,0" Style="{StaticResource TextStyleSousTitre}"/>                            
                             <TextBox Grid.Row="3" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" Style="{StaticResource TextBoxStyleNotes}"/>
                              
-                            <TextBox Grid.Row="3" Name="NoteWebSiteItem" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" Foreground="#808080" IsReadOnly="True" Style="{StaticResource TextBoxStyleNotes}"/>
+                            <TextBox Grid.Row="3" Name="NoteWebSiteItem" Width="300" HorizontalAlignment="Left" Margin="5,44,0,10" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" MaxLines="5" IsReadOnly="True" Style="{StaticResource TextBoxStyleNotes}"/>
                             
                             <Button Name="BoutonModifier" Grid.Row="4" Content="Modifier" Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleNormal}" Click="Click_Modifier"/>
                             <Button Grid.Row="5" Content="Supprimer"   Margin="5,0,0,0" Width="300" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyleBlue}" Click="Click_Supprimer"/>
