@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.IO;
+using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace PasswordManager
 {
@@ -155,7 +157,7 @@ namespace PasswordManager
             if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
                 DatafileEncryption.DecryptFile();
-
+                note = Regex.Replace(note, @"\r\n+|\n+", "§"); //Remplace les retours par § pour éviter les problèmes de lecture avec les retours à la ligne
                 //Modifie la ligne correspondante à la modification avec les nouvelles informations saisies
                 string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
                 string selectedItem_string = selectedItem.url_logo + "|" + selectedItem.nom + "|" + selectedItem.url + "|" + selectedItem.email + "|" + selectedItem.password + "|" + selectedItem.note;

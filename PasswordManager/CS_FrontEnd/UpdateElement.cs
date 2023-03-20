@@ -32,7 +32,7 @@ namespace PasswordManager
                 URLWebSiteItem.Text = filteredList.ElementAt(indice).url;
                 EmailWebSiteItem.Text = filteredList.ElementAt(indice).email;
                 PassordWebSiteItem.Text = filteredList.ElementAt(indice).password;
-                NoteWebSiteItem.Text = filteredList.ElementAt(indice).note;
+                NoteWebSiteItem.Text = filteredList.ElementAt(indice).note.Replace("§", "\n");
                 Details_Column.Visibility = Visibility.Visible;
 
                 link_icon = filteredList.ElementAt(indice).url_logo;
@@ -59,7 +59,7 @@ namespace PasswordManager
                     URLWebSiteItem.Text = WebsiteList[indice].url;
                     EmailWebSiteItem.Text = WebsiteList[indice].email;
                     PassordWebSiteItem.Text = WebsiteList[indice].password;
-                    NoteWebSiteItem.Text = WebsiteList[indice].note;
+                    NoteWebSiteItem.Text = WebsiteList[indice].note.Replace("§", "\n"); 
                     Details_Column.Visibility = Visibility.Visible;
 
                     link_icon = WebsiteList[indice].url_logo; 
