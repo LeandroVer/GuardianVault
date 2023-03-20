@@ -157,7 +157,7 @@ namespace PasswordManager
             if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
             {
                 DatafileEncryption.DecryptFile();
-                note = Regex.Replace(note, @"\r\n+|\n+", "§"); //Remplace les retours par § pour éviter les problèmes de lecture avec les retours à la ligne
+                note = Regex.Replace(note, @"\r\n+|\n+", "§"); //Remplace les retours à la ligne par § pour éviter les problèmes de lecture
                 //Modifie la ligne correspondante à la modification avec les nouvelles informations saisies
                 string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
                 string selectedItem_string = selectedItem.url_logo + "|" + selectedItem.nom + "|" + selectedItem.url + "|" + selectedItem.email + "|" + selectedItem.password + "|" + selectedItem.note;
