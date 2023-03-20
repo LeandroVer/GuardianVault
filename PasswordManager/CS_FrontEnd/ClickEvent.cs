@@ -100,6 +100,7 @@ namespace PasswordManager
             }
             else
             {
+                Save_modification();
                 Disable_modification();
             }
             

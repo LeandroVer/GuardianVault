@@ -20,9 +20,23 @@ namespace PasswordManager
         {
             InitializeComponent();
             TextBlockMessage.Content = message;
+            KeyDown += pop_up_KeyDown;
         }
 
-        private void Close_pop_up(object sender, RoutedEventArgs e)
+        private void Click_pop_up(object sender, RoutedEventArgs e)
+        {
+            Close_pop_up();
+        }
+
+        private void pop_up_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) 
+            {
+                Close_pop_up(); 
+            }
+        }
+        
+        private void Close_pop_up()
         {
             this.DialogResult = true;
         }
