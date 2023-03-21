@@ -178,7 +178,10 @@ namespace PasswordManager
                 File.WriteAllLines(DatafilePath, lines);
 
                 DatafileEncryption.EncryptFile();
-                DatagridDisplay();
+                int temp_index = DataGridWebsiteList.SelectedIndex;
+                Update_DataGrid_Items();
+                DataGridWebsiteList.SelectedIndex = temp_index;
+                Update_Details_WebSiteItem(temp_index);
                 DeleteDatafile();
             }
             else
