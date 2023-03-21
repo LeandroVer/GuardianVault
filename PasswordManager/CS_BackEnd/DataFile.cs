@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.IO;
+using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace PasswordManager
 {
@@ -146,6 +148,46 @@ namespace PasswordManager
             }
 
             File.WriteAllLines(datafileFilePath, datafileLines);
+        }
+        public void Save_into_datafile(string identifiant, string url, string motDePasse, string note)
+        {
+            ResetAutoLockTimer();
+            DeleteFilteredList();
+
+            if (DataGridWebsiteList.SelectedItem is WebsiteItem selectedItem)
+            {
+                DatafileEncryption.DecryptFile();
+                note = Regex.Replace(note, @"\r\n+|\n+", "§"); //Remplace les retours à la ligne par § pour éviter les problèmes de lecture
+                //Modifie la ligne correspondante à la modification avec les nouvelles informations saisies
+                string DatafilePath = System.IO.Path.Combine(appDataFolder, "GuardianVault", "Datafile.gv");
+                string selectedItem_string = selectedItem.url_logo + "|" + selectedItem.nom + "|" + selectedItem.url + "|" + selectedItem.email + "|" + selectedItem.password + "|" + selectedItem.note;
+                string modified_string = selectedItem.url_logo + "|" + selectedItem.nom + "|" + url + "|" + identifiant + "|" + motDePasse + "|" + note;
+                string[] lines = File.ReadAllLines(DatafilePath);
+
+                // Rechercher la ligne correspondant à selectedItem_string et la remplacer par modified_string
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].Equals(selectedItem_string))
+                    {
+                        lines[i] = modified_string;
+                        break;
+                    }
+                }
+
+                // Écrire les nouvelles lignes dans le fichier
+                File.WriteAllLines(DatafilePath, lines);
+
+                DatafileEncryption.EncryptFile();
+                int temp_index = DataGridWebsiteList.SelectedIndex;
+                Update_DataGrid_Items();
+                DataGridWebsiteList.SelectedIndex = temp_index;
+                Update_Details_WebSiteItem(temp_index);
+                DeleteDatafile();
+            }
+            else
+            {
+                Open_pop_up("Veuillez sélectionner un site web à modifier.");
+            }
         }
         public void DatagridDisplay()
         {
