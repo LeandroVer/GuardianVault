@@ -37,7 +37,7 @@ namespace PasswordManager
 
         public void Save_modification()
         {
-            //Ici il faut mettre l'appel de la fonction qui va remplacer les nouvelles infos modifiés
+            Save_into_datafile(EmailWebSiteItem.Text,URLWebSiteItem.Text,PassordWebSiteItem.Text,NoteWebSiteItem.Text);
             Disable_modification();
         }
     }

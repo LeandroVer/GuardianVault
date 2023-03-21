@@ -11,6 +11,6 @@
             <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Name="TextBlockMessage" Content="Ici est affiché le message !" HorizontalContentAlignment="Center" VerticalAlignment="Top" Padding="0,0,0,0" Margin="20,0,20,0" Style="{StaticResource TextStyleNormal}"/>
-        <Button Grid.Row="1" Content="OK" Width="80" Height="28" Style="{StaticResource ButtonStyleBlue}" Click="Close_pop_up"/>
+        <Button Grid.Row="1" Content="OK" Width="80" Height="28" Style="{StaticResource ButtonStyleBlue}" Click="Click_pop_up"/>
     </Grid>
 </Window>
