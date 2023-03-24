@@ -359,7 +359,7 @@
                             <Button Grid.Row="2" Content="Exporter le coffre" Height="50" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyleNormal}" Click="Click_exporter_coffre"/>
                          </Grid>                        
 
-                        <Label Grid.Row="4" Content="Verrouillage automatique" VerticalAlignment="Center" Margin="11,0,0,0" Style="{StaticResource TextStyleNormal}"/>
+                        <Label Grid.Row="4" Content="Déconnexion automatique" VerticalAlignment="Center" Margin="11,0,0,0" Style="{StaticResource TextStyleNormal}"/>
                             
                         <ComboBox Grid.Row="4" Name ="DDL_Autolock" Height="30" Width="70" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"   VerticalContentAlignment="Center" Style="{StaticResource DropDownListStyleNormal}"  SelectionChanged="DDL_Autolock_SelectionChanged">
                             <ComboBoxItem Content="Jamais"/>
