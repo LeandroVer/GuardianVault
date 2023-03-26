@@ -59,7 +59,25 @@ namespace PasswordManager
             FenetrePremiereConnexion.Visibility = Visibility.Visible;
             Disable_modification();
         }
+
+        public void Visibility_a_propos()
+        {
+            if (ColonnePrincipale.Visibility == Visibility.Hidden)
+            {
+                ColonnePrincipale.Visibility = Visibility.Visible;
+                ColonnePropos.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                ColonnePrincipale.Visibility = Visibility.Hidden;
+                ColonnePropos.Visibility = Visibility.Visible;
+            }
+           
+        }
+
         
+
+
         public void HashFileExists()
         {
             string path = appDataFolder;
