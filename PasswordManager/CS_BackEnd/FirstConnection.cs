@@ -24,7 +24,7 @@ namespace PasswordManager
             }
             else
             {
-                MainWindow.Open_pop_up("Le mot de passe et confirmation doivent être identique");
+                MainWindow.Open_pop_up("Le mot de passe et confirmation doivent être identiques");
             }
             return false;
         }

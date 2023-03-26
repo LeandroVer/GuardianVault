@@ -73,7 +73,7 @@
                     <ColumnDefinition Width="37*"/> <!-- Colonne secondaire -->
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0"> <!-- Colonne principale -->
+                <Grid Grid.Column="0" Name="ColonnePrincipale" Visibility="Visible"> <!-- Colonne principale -->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="6*"/> <!-- Marge -->
                         <RowDefinition Height="6*"/> <!-- Recherche & écrou -->
@@ -94,7 +94,8 @@
                     <!-- Bouton Paramètres -->                    
                     <CheckBox Name="CheckboxParametres" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,35,0" Style="{StaticResource CheckboxStyleSettings}" Click="Click_parametres"/>
                         
-
+                    <Image Grid.Row="2" Name="TutoListEmpty" Source="/Assets/tuto_bg.png" Visibility="Hidden"/>
+                    
                     <Grid Grid.Row="2"> <!-- Contenu -->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="47*"/> <!-- Liste déroulante -->
@@ -144,12 +145,12 @@
                                     <ColumnDefinition Width="81*"/> <!-- Nom -->
                                 </Grid.ColumnDefinitions>
                                 
-                                <Image Name="LogoWebSiteItem" Grid.Column="0" Source="/Assets/img_temp.png" Height="60" Width="60">
+                                <Image Name="LogoWebSiteItem" Grid.Column="0" Source="/Assets/icon_placeholder.png" Height="60" Width="60">
                                     <Image.Clip>
                                         <EllipseGeometry RadiusX="30" RadiusY="30" Center="30,30"/>
                                     </Image.Clip>
                                 </Image>
-                                <Label Name="NomWebSiteItem" Grid.Column="1" Content="Adobe" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextStyleGrandTitre}"/>
+                                <Label Name="NomWebSiteItem" Grid.Column="1" Content="SiteWeb" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource TextStyleGrandTitre}"/>
                             </Grid>
 
                             <StackPanel Grid.Row="1"> <!-- Sous-titre -->
@@ -165,7 +166,7 @@
                                 </Grid.RowDefinitions>
                                 
                                 <Label Grid.Row="0" Content="Identifiant" VerticalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource TextStyleNormal}"/>
-                                <TextBox Grid.Row="0" Name="EmailWebSiteItem" Text="adobe.com" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
+                                <TextBox Grid.Row="0" Name="EmailWebSiteItem" Text="identifiant" Width="165" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="110,0,0,0" IsReadOnly="True" Style="{StaticResource TextBoxStyleInformation}"/>
                                 <Button Grid.Row="0" Name="BoutonCopierId" HorizontalAlignment="Right" Width="20" Height="20"  Margin="0,0,53,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_copy_id">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Assets/copy_button.png"/>
@@ -199,6 +200,45 @@
                         </Grid>
                     </Grid>
                 </Grid>
+                
+            <Grid Grid.Column="0" Name="ColonnePropos" Background="White" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/> <!-- Marge et bouton fermer -->
+                    <RowDefinition Height="10*"/> <!-- Logo -->
+                    <RowDefinition Height="10*"/> <!-- Titre -->
+                    <RowDefinition Height="5*"/> <!-- Séparateur -->
+                    <RowDefinition Height="8*"/> <!-- Noms/Prénoms -->
+                    <RowDefinition Height="8*"/> <!-- Nom du projet -->
+                    <RowDefinition Height="8*"/> <!-- Type de projet -->
+                    <RowDefinition Height="8*"/> <!-- Github -->
+                    <RowDefinition Height="8*"/> <!-- Version -->
+                    <RowDefinition Height="15*"/> <!-- Marge -->
+                </Grid.RowDefinitions>
+                
+                <Button Grid.Row="0" Name="BoutonFermerPropos" HorizontalAlignment="Right" VerticalAlignment="Top" Width="32" Height="32" Margin="0,40,33,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_a_propos">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Assets/close_button.png"/>
+                    </Button.Background>
+                </Button>
+                    
+                <Image Grid.Row="1" Source="/Assets/logo.png" Height="60" HorizontalAlignment="Center"/>
+                <Image Grid.Row="2" Source="/Assets/title_big.png" Height="25" HorizontalAlignment="Center"/>
+                <Rectangle Grid.Row="3" Width="100" Height="4" Fill="#69bbfe" RadiusX="2" RadiusY="2"/>
+                <Label Grid.Row="4" Content="Léandro Vercasson &amp; Corentin Rahier" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource TextStyleTitre}"/>
+                <Label Grid.Row="5" Content="Projet C# 2023" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource TextStyleTitre}"/>
+                <Label Grid.Row="6" Content="Open Source" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource TextStyleTitre}"/>
+                <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label  Content="Disponible sur Github" VerticalAlignment="Center" FontSize="20" Style="{StaticResource TextStyleTitre}"/>
+                    <Button Width="25" Height="25"  Margin="10,0,0,0" BorderBrush="{x:Null}" Style="{StaticResource ButtonStyleImage}" Click="Click_open_github">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Assets/open_button.png"/>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+                <Label Grid.Row="8" Content="Version 1.0 (2023-04)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource TextStyleTitre}"/>
+
+                
+            </Grid>
 
                 <Grid Grid.Column="1" x:Name="GridSecondaire" Visibility="Visible"> <!-- Colonne secondaire -->
                     <Grid.ColumnDefinitions>
@@ -380,15 +420,12 @@
                             </Grid.RowDefinitions>
 
                             <Button Grid.Row="0" Content="Se déconnecter" Height="50" VerticalAlignment="Top" Style="{StaticResource ButtonStyleNormal}" Click="Click_deconnexion"/>
-                            <Button Grid.Row="1" Content="A propos" Height="50" VerticalAlignment="Center" Style="{StaticResource ButtonStyleNormal}"/>
+                            <Button Grid.Row="1" Content="A propos" Height="50" VerticalAlignment="Center" Style="{StaticResource ButtonStyleNormal}" Click="Click_a_propos"/>
                             <Button Grid.Row="2" Content="Supprimer le compte" Height="50" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyleRed}"  Click="Click_delete_account"/>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Viewbox>
-        
-
-        
+        </Viewbox>        
     </Grid>   
 </Window>
