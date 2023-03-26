@@ -13,6 +13,10 @@ namespace PasswordManager
         private List<WebsiteItem> filteredList = null;
         private void Update_Slider_Longueur(object sender, RoutedEventArgs e) //Ajuster la valeur du slider de la longueur du mot de passe selon la valeur inscrite dans la TextBox
         {
+            if (TextBoxLongueur.Text == "") //Si le champs est vide alors remet la longueur minimum de mdp
+            {
+                TextBoxLongueur.Text = SliderLongueur.Minimum.ToString(); 
+            }
             SliderLongueur.Value = Convert.ToDouble(TextBoxLongueur.Text);
         }
 
@@ -39,10 +43,17 @@ namespace PasswordManager
             }
             else
             {
-                //S'il n'y a pas de recherche en cours
+                if (WebsiteList.Count == 0 || WebsiteList == null)
+                {
+                    // Si la base de données est vide, on affiche des champs vides + image tutoriel
+                    DataGridWebsiteList.Visibility = Visibility.Hidden;
+                    TutoListEmpty.Visibility = Visibility.Visible;
+
+                }
+
                 if (WebsiteList == null || WebsiteList.Count == 0 || indice < 0 || indice >= WebsiteList.Count)
                 {
-                    // Si la base de données est vide, on affiche des champs vides
+                    // Si il n'y a aucun résultat de recherche
                     NomWebSiteItem.Content = "";
                     URLWebSiteItem.Text = "";
                     EmailWebSiteItem.Text = "";
@@ -52,9 +63,13 @@ namespace PasswordManager
 
                     link_icon = "/Assets/icon_placeholder.png";
                 }
+                                
                 else
                 {
                     // Sinon, on affiche les détails des sites web correspondant à l'indice
+                    DataGridWebsiteList.Visibility = Visibility.Visible;
+                    TutoListEmpty.Visibility = Visibility.Hidden;
+
                     NomWebSiteItem.Content = WebsiteList[indice].nom;
                     URLWebSiteItem.Text = WebsiteList[indice].url;
                     EmailWebSiteItem.Text = WebsiteList[indice].email;

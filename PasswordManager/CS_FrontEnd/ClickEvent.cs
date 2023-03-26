@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using static System.Net.WebRequestMethods;
 
 namespace PasswordManager
 {
@@ -160,6 +161,15 @@ namespace PasswordManager
             Importer_coffre();
         }
 
+        private void Click_a_propos(object sender, EventArgs e)
+        {
+            Visibility_a_propos();
+        }
+
+        private void Click_open_github(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { FileName = "https://github.com/LeandroVer/GuardianVault", UseShellExecute = true });
+        }
 
 
         //------------- Detection touche "entrée" ---------------
