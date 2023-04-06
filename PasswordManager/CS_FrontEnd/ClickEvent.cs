@@ -89,7 +89,9 @@ namespace PasswordManager
             {
                 Process.Start(new ProcessStartInfo() { FileName = URLWebSiteItem.Text.ToString(), UseShellExecute = true });
             }
-            catch { }
+            catch {
+                Open_pop_up("URL invalide");
+            }
         }
 
         private void Click_copy_mdp(object sender, EventArgs e)
